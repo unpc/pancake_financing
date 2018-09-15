@@ -3,7 +3,7 @@
 		<div class="col-md-6 col-sm-12">
 			<?php $me = _G('ME'); if ($me->id):  ?>
 				<?= T('您好, %name', ['%name' => $me->name]) ?>&#160;
-				<i class="fa fa-sign-out"></i>&#160;<a class="white" href="<?= URL('/logout') ?>"><?= T('退出') ?></a>
+				<a class="white" href="<?= URL('/logout') ?>"><i class="fa fa-sign-out"></i>&#160;<?= T('退出') ?></a>
 			<?php else: ?>
 				<?= T('您好，欢迎来到煎饼理财！') ?>
 			<?php endif; ?>
