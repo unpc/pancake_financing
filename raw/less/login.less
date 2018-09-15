@@ -1,0 +1,147 @@
+/*部分样式强行覆盖admin.css和底层样式😆*/
+
+@background: #666666;
+@font-color: #CCCCCC;
+@red:			rgb(230, 0, 0);
+
+/*整体样式加载*/
+html, body {
+	font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+	height: 100%;
+	background: #EFEFEF !important;
+	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+	ol, ul, li {
+		list-style: none;
+		display: block;
+	}
+	
+	.alert {
+		padding: 10px;
+	}
+	.alert-danger {
+		border-radius: 0;
+		color: @red;
+	}
+	.alert-dismissible {
+		padding-right: 30px;
+	}
+
+	#header {
+		padding: 10px 15%;
+		background: rgba(230, 0, 0, 0.8);
+		flex: 0 0 auto;
+		height: 80px;
+		.header-container {
+			position: absolute;
+			left: 15%;
+			top: 10px;
+			
+		}
+		.title {
+			font-size: 28px;
+			color: #FFF;
+		}
+		.title-description {
+			font-size: 14px;
+			color: #CCC;
+		}
+	}
+
+	#body {
+		padding: 10px 15%;
+		flex: 1 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		.input-group-addon {
+			background: @red;
+			border-color: @red;
+			border-radius: 0px;
+			color: #FFFFFF;
+		}
+		.form-control {
+			border-color: @red;
+			border-radius: 0px;
+			border-width: 2px;
+		}
+		.body-container {
+			width: 360px;
+			.login-box {
+				background-color:#FFF;
+				color: #000;
+				box-shadow: 0 4px 10px #ccc;
+				.box-title {
+					padding: 15px 25px;
+					background: @red;
+					color: #FFF;
+					h2 {
+						font-size: 18px;
+						margin: 0px;
+					}
+				}
+				.box-body {
+					padding: 15px 25px;
+				}
+				.checkbox {
+					font-size: 12px;
+					label {
+						line-height: 20px;
+					}
+					a {
+						text-decoration: none;
+						color: @red;
+					}
+				}
+				.sendAuthCode {
+					text-decoration: none;
+					color: #FFF;
+					cursor: pointer;
+				}
+			}
+		}
+		
+	}
+
+	#footer {
+		flex: 0 0 auto;
+		margin-top: 10px;
+		padding: 10px 15%;
+		border-top: 1px solid #E8E8E8;
+		background-color: #FAFAFA;
+		a {
+			text-decoration: none;
+			outline: none;
+			font-size: 14px;
+			color: #333;
+			&:hover {
+				color: @red;
+			}
+		}
+		p {
+			margin-bottom: 0px;
+		}
+		.copyright {
+			float: left;
+			line-height: 17px;
+			font-size: 12px;
+			color: #999;
+			a {
+				font-size: 12px;
+				color: @red;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	body {
+		#header, #body, #footer {
+			padding: 10px;
+		}
+		#header > .header-container {
+			left: 10px;
+		}
+	}
+}

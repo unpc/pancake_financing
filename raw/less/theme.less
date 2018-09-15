@@ -1,0 +1,387 @@
+/*部分样式强行覆盖admin.css和底层样式😆*/
+
+@red:		 rgb(156, 12, 19);
+@red:		rgb(230, 0, 0);
+@font-color: #CCCCCC;
+
+/*整体样式加载*/
+html,body {
+	height: 100%;
+	background: #EFEFEF !important;
+	font-size: 14px;
+	ol, ul, li {
+		list-style: none;
+		display: block;
+	}
+
+	a.btn {
+		margin: 10px 10%;
+		border-radius: 0px;
+		width: auto;
+		&.btn-primary {
+			background: @red;
+			border-color: @red;
+			&:hover {
+				background: #B7272E;
+				border-color: #B7272E;
+			}
+		}
+	}
+	
+	.red {
+		color: @red;
+	}
+	.white {
+		color: #FFF;
+	}
+
+	#header {
+		.header-top {
+			background-color:#666666;
+			padding: 5px 10%;
+			color: #FEFEFE;
+			font-size: 12px;
+		}
+		.header-menu {
+			background: @red;
+			a.logo {
+				font-size: 28px;
+				color: #FFF;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.menu {
+				float: right;
+				margin-top: 14px;
+				li {
+					position: relative;
+					float: left;
+					height: 33px;
+					font-size: 18px;
+					line-height: 33px;
+					border-bottom: 2px @font-color solid;
+					margin-left: 30px;
+					&:hover, &.active {
+						border-bottom: 2px #FFF solid;
+						a {
+							color: #FFF;
+						}
+					}
+					a {
+						color: @font-color;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+
+	#body {
+		.slider {
+			margin: 0px 10%;
+			position: relative;
+			.login-box {
+				position: absolute;
+				width: 260px;
+				height: 100%;
+				right: 0px;
+				background-color: rgba(0,0,0,0.6);
+				z-index: 9999;
+				.title {
+					font-size: 26px;
+					color: #FFF;
+					padding: 5px 0;
+				}
+				.sub-title {
+					font-size: 14px;
+					color: #D4D4D4;
+					padding-bottom: 10px;
+				}
+				.login-title {
+					padding: 5px 0;
+					margin: 0px 50px 5px;
+					border-bottom: 1px #FF810C solid;
+					color: #FF810C;
+				}
+				.login-body {
+					color: #FF810C;
+				}
+				.button {
+					position: absolute;
+					height: 50px;
+					width: 100%;
+					bottom: 0;
+					background: rgba(0, 0, 0, 0.6);
+					font-size: 16px;
+					line-height: 50px;
+					color: #FFF;
+				}
+			}
+		}
+
+		.product-list {
+			padding: 20px 10%;
+			.product-desc {
+				padding: 20px 23px 0;
+    			text-align: center;
+				background: #FFF;
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 260px;
+				/* background-color: #fff; */
+				box-shadow: 0 0 20px 0 rgba(0,0,0,.15);
+				border-radius: 5px;
+				-webkit-transition: margin-top .1s linear,-webkit-box-shadow .2s linear;
+				-o-transition: box-shadow .2s linear,margin-top .1s linear;
+				transition: box-shadow .2s linear,margin-top .1s linear;
+				transition: box-shadow .2s linear,margin-top .1s linear,-webkit-box-shadow .2s linear;
+				h3 {
+					line-height: 28px;
+					font-size: 20px;
+					font-weight: bold;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					word-wrap: normal;
+					margin: 0px;
+				}
+				em {
+					display: block;
+					width: 100%;
+					padding-top: 1px;
+					line-height: 20px;
+					font-size: 14px;
+					color: #999;
+				}
+				.rate {
+					height: 59px;
+					line-height: 59px;
+					margin-top: 5px;
+					font-size: 42px;
+					color: @red;
+				}
+				.remark {
+					position: relative;
+					top: -6px;
+					line-height: 20px;
+					font-size: 14px;
+					color: #333;
+				}
+				.list {
+					position: relative;
+					width: 100%;
+					margin-top: 5px;
+					.wrap {
+						float: left;
+						width: 50%;
+						line-height: 22px;
+						text-align: left;
+						span {
+							display: block;
+							padding-left: 20px;
+							color: #ccc;
+							strong {
+								font-style: normal;
+								font-size: 16px;
+								color: #666;
+							}
+						}
+						&:first-child {
+							text-align: right;
+							span {
+								padding-left: 0;
+								padding-right: 20px;
+							}
+						}
+					}
+					.line {
+						position: absolute;
+						top: 5px;
+						left: 50%;
+						bottom: 4px;
+						width: 1px;
+						background-color: #666;
+					}
+				}
+				.btn-wrap {
+					padding-top: 18px;
+					text-align: center;
+					a.btn {
+						margin: 0px 10%;
+					}
+				}
+			}
+		}
+
+		.products {
+			padding:0 10%;
+			.table {
+				background: #FFF;
+				.panel-title {
+					line-height: 30px;
+					font-size: 22px;
+					font-weight: bold;
+					color: #333;
+				}
+				a {
+					text-decoration: none;
+					outline: none;
+					color: #333;
+					cursor: pointer;
+					&.a-link {
+						line-height: 33px;
+    					color: @red;
+					}
+				}
+				.pro-name {
+					padding-left: 15px;
+					font-size: 16px;
+					font-weight: bold;
+					color: #333;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					word-wrap: normal;
+					margin: 0px;
+				}
+				.pro-type {
+					font-size: 16px;
+					color: #333;
+					margin: 0;
+				}
+				.pro-data {
+					line-height: 18px;
+					font-size: 18px;
+					margin: 0;
+				}
+				.pro-remark {
+					padding: 6px 0 0 0;
+					line-height: 14px;
+					font-size: 14px;
+					color: #999;
+					margin: 0;
+				}
+				td {
+					padding: 15px 0;
+					vertical-align: middle;
+				}
+				.pro-btn {
+					padding-right: 15px;
+					.btn {
+						margin: 0px;
+						border-color: @red;
+						color: @red;
+						padding: 8px 18px;
+					}
+				}
+				tr {
+					&:hover {
+						td {
+							background: #DFF0D8;
+						}
+						.btn {
+							background: @red;
+							color: #FFF;
+						}
+					}
+				}
+			}
+		}
+		.card-list {
+			padding: 0 10%;
+			.news-list {
+				background: #FFF;
+				padding: 0 10px;
+				.panel-title {
+					position: relative;
+					padding: 10px 0;
+					border-bottom: 1px solid #e8e8e8;
+					h2 {
+						line-height: 33px;
+						font-size: 22px;
+						font-weight: bold;
+						color: #333;
+						margin: 0;
+					}
+					a {
+						position: absolute;
+						top: 10px;
+						right: 0;
+						font-size: 14px;
+						text-decoration: none;
+						outline: none;
+						cursor: pointer;
+						line-height: 33px;
+						color: @red;
+					}
+				}
+				.content {
+					padding: 12px 0;
+					li {
+						position: relative;
+						padding: 8px 0;
+						font-size: 14px;
+						a {
+							display: block;
+							line-height: 18px;
+							padding-right: 55px;
+							color: #666;
+							text-decoration: none;
+							cursor: pointer;
+							&:hover {
+								color: @red;
+							}
+							span {
+								position: absolute;
+								top: 10px;
+								right: 0;
+								color: #999;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#footer {
+		margin-top: 10px;
+		padding: 20px 10%;
+		border-top: 1px solid #E8E8E8;
+		background-color: #FAFAFA;
+		a {
+			text-decoration: none;
+			outline: none;
+			font-size: 14px;
+			color: #333;
+			&:hover {
+				color: @red;
+			}
+		}
+		.footer-menu {
+			margin-bottom: 20px;
+			float: left;
+			padding: 0;
+			width: 100%;
+			li {
+				float: left;
+				display: inline;
+				span {
+					margin: 0 12px;
+					font-size: 12px;
+					color: #ccc;
+				}
+			}
+		}
+		.copyright {
+			float: left;
+			line-height: 17px;
+			font-size: 12px;
+			color: #999;
+			a {
+				font-size: 12px;
+				color: @red;
+			}
+		}
+	}
+}

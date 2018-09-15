@@ -1,0 +1,20 @@
+{
+    "shortname": "pancake",
+    "name": "煎饼理财",
+    "author": "Cheng Liu",
+    "description": "pancake_financing Template",
+    "version": "0.0.1",
+    "email": "cheng.liu@geneegroup.com",
+    "dependencies": {
+        "gini": "*",
+        "auth": "^0.1.4",
+        "oauth": "*",
+	"cache": "*"
+    },
+    "id": "pancake_financing",
+    "composer": {
+	"config": {
+            "secure-http": false
+    	}
+    }
+}

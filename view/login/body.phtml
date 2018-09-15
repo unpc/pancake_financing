@@ -1,0 +1,27 @@
+<div class="body-container">
+    <div class="login-box">
+        <div class="box-title">
+            <h2>用户登录</h2>
+        </div>
+        <div class="box-body">
+            <form method="POST" id="login-form">
+                <?= V('form-error', ['form' => $form]) ?>	
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-phone fa-fw"></i></div>
+                        <input type="text" class="form-control" name="authToken" placeholder="请输入手机号" id="AuthToken" autocomplete="off" value="<?= H($form['authToken'])?>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+                        <input class="form-control" name="authPassword" placeholder="请输入登录密码" id="password" type="password" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-block btn-success" type="submit" form="login-form" style="border-radius: 0;"><?= T('登 录') ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

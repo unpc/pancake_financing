@@ -1,0 +1,76 @@
+<div class="body-container">
+    <div class="login-box">
+        <div class="box-title">
+            <h2>用户注册</h2>
+        </div>
+        <div class="box-body">
+            <form method="POST" id="login-form">
+                <?= V('form-error', ['form' => $form]) ?>	
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-phone fa-fw"></i></div>
+                        <input type="text" class="form-control" name="authToken" placeholder="请输入手机号" id="AuthToken" autocomplete="off" value="<?= H($form['authToken'])?>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+                        <input class="form-control" name="authPassword" placeholder="请输入登录密码" id="password" type="password" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-qrcode fa-fw"></i></div>
+                        <input type="text" class="form-control" name="authCode" placeholder="请输入验证码" id="authCode" autocomplete="off" value="<?= H($form['authCode'])?>" />
+                        <div class="input-group-addon"><a class="sendAuthCode"><?= T('发送验证码') ?></a></div>
+                    </div>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="isRead" <?= H($form['isRead']) == 'on' ? 'checked="checked"' : '' ?>>&#160;点击注册表示你已同意<a href="gini-ajax:ajax/login/showServiceProtocol">《煎饼理财用户服务协议》</a>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-block btn-success" type="submit" form="login-form" style="border-radius: 0;"><?= T('注 册') ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+require(['main'], function($){
+    var $form = $('#login-form')
+        , interval = 60
+        , adjustInterval
+    $form.on('click', '.sendAuthCode', function(e){
+        var me = $(this)
+        if (me.hasClass('disabled')) {
+            e.stopPropagation();
+            return false;
+        }
+        e.preventDefault();
+
+		$.ajax({
+			type: "POST",
+			url: "<?= URL('/ajax/login/sendcode')?>",
+			data: {
+                phone: $form.find('input[name=authToken]').val()
+            },
+			success: function(data) {
+                interval = 120
+                me.addClass('disabled').html(interval)
+                adjustInterval = setInterval(function(){
+                    if (interval <= 0) {
+                        adjustInterval = null
+                        me.removeClass('disabled').html('发送验证码')
+                    }
+                    else {
+                        interval = interval - 1
+                        me.html(interval)
+                    }
+                }, 1000)
+			}
+		});
+    })
+})
+</script>
