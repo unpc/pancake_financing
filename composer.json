@@ -1,0 +1,35 @@
+{
+    "require": {
+        "league/oauth2-client": "dev-master",
+        "league/oauth2-server": "3.*",
+        "sabre/dav": "2.*",
+        "doctrine/inflector": "@stable"
+    },
+    "name": "unpc",
+    "description": "Unpc Site Template",
+    "license": "proprietary",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jia Huang",
+            "email": "iamfat@gmail.com"
+        }
+    ],
+    "bin": [
+        "bin/gini"
+    ],
+    "require-dev": {
+        "linkorb/jsmin-php": "1.*",
+        "natxet/CssMin": "3.*",
+        "henrikbjorn/lurker": "1.*"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://satis.genee.cn"
+        },
+        {
+            "packagist": false
+        }
+    ]
+}

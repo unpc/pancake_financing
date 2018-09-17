@@ -28,14 +28,23 @@ html,body {
 		}
 	}
 	
-	.red {
-		color: @red;
-	}
-	.white {
-		color: #FFF;
+	.red { color: @red; }
+	.white { color: #FFF;}
+
+	.relative { position: relative; }
+
+	.hr { height: 10px; }
+	.hr_2 { height: 20px; }
+
+
+	#wrap {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
 
 	#header {
+		flex: 0 0 auto;
 		.header-top {
 			background-color:#666666;
 			padding: 5px 10%;
@@ -77,9 +86,32 @@ html,body {
 	}
 
 	#body {
+		flex: 1 0 auto;
 		.slider {
 			margin: 0px 10%;
 			position: relative;
+			.breadcrumb {
+				background: transparent;
+				margin: 10px 0;
+				padding-left: 0px;
+				a {
+					color: @red;
+				}
+			}
+			.search_tags {
+				.desc {
+					color: #999;
+				}
+				span, a {
+					margin-right: 15px;
+				}
+				a {
+					color: #666;
+					&.active {
+						color: @red;
+					}
+				}
+			}
 			.login-box {
 				position: absolute;
 				width: 260px;
@@ -115,6 +147,101 @@ html,body {
 					font-size: 16px;
 					line-height: 50px;
 					color: #FFF;
+				}
+			}
+			.none {
+				background: transparent;
+				border: none;
+				outline: none;
+			}
+			.profile-box {
+				box-shadow: 0 0 15px rgba(0, 0, 0, .3);
+				background: #FFF;
+				.profile-content {
+					padding: 60px 0 60px 50px;
+					.pub-tag {
+						position: absolute;
+						top: 10px;
+						left: 0;
+						background: #E60000;
+						color: #FFF;
+						text-align: center;
+						padding: 5px 10px;
+						box-shadow: 0 1px 1px 0px #441213;
+						strong, small {
+							display: block;
+						}
+						.tag-shadow {
+							position: absolute;
+							width: 15px;
+							height: 15px;
+							left: 0px;
+							bottom: -15px;
+							border-top: 15px solid #441213;
+							border-left: 15px solid #EFEFEF;
+						}
+					}
+					.name {
+						line-height: 36px;
+						font-size: 24px;
+						font-weight: bold;
+						margin: 0px;
+					}
+					.type {
+						padding-top: 4px;
+						line-height: 16px;
+						font-size: 14px;
+						color: #999;
+						margin: 0;
+						margin-bottom: 20px;
+					}
+					.column-desc {
+						margin-bottom: 20px;
+						.column {
+							border-left: 1px solid #e8e8e8;
+							padding: 0 auto;
+							&:first-child {
+								border: none;
+							}
+						}
+						H4 {
+							padding-top: 5px;
+							line-height: 16px;
+							font-size: 14px;
+							color: #999;
+						}
+						.xm {
+							line-height: 32px;
+    						font-size: 32px;
+						}
+					}
+					.column-time {
+						margin-bottom: 20px;
+						.column {
+							text-align: center;
+							h5 {
+								font-weight: normal;
+							}
+							h6 {
+								color: #999;
+							}
+						}
+					}
+					.progress {
+						height: 10px;
+						border-radius: 0px;
+						.progress-bar-primary {
+							background: @red;
+						}
+					}
+					.buttons {
+						.btn {
+							margin: 0;
+						}
+					}
+				}
+				.desc-box {
+					padding: 15px 25px;
 				}
 			}
 		}
@@ -263,8 +390,9 @@ html,body {
 					margin: 0;
 				}
 				td {
-					padding: 15px 0;
+					padding: 18px 0;
 					vertical-align: middle;
+					position: relative;
 				}
 				.pro-btn {
 					padding-right: 15px;
@@ -285,6 +413,14 @@ html,body {
 							color: #FFF;
 						}
 					}
+				}
+				.tag-in-table-title {
+					position: absolute;
+					top: 0;
+					background: @red;
+					color: #FFF;
+					padding: 2px 16px;
+					font-size: 12px;
 				}
 			}
 		}
@@ -345,6 +481,7 @@ html,body {
 		}
 	}
 	#footer {
+		flex: 0 0 auto;
 		margin-top: 10px;
 		padding: 20px 10%;
 		border-top: 1px solid #E8E8E8;

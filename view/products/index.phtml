@@ -1,0 +1,71 @@
+<div class="slider">
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li class="active"><?= T('产品列表') ?></li>
+    </ol>
+    <form method="POST" action="<?= URL('/products', $get_form) ?>" id="products-search">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 ">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="title" placeholder="请输入产品名称" value="<?= $form['title'] ?>" />
+                    <div class="input-group-addon">
+                        <button class="none" type="submit" form='products-search'><i class="fa fa-search fa-fw"></i> 搜索</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="hr"></div>
+    <div class="search_tags">
+        <span class="desc">产品类型</span>
+        <a href="<?= URL('/products', array_merge($get_form, ['type' => 0])) ?>" class="<?= !$get_form['type'] ? 'active' : ''?>">全部</a>
+        <?php foreach(\Gini\ORM\Product::$TYPE as $k => $v): ?>
+            <a href="<?= URL('/products', array_merge($get_form, ['type' => (int)$k])) ?>" class="<?= $get_form['type'] == $k ? 'active' : ''?>"><?= $v ?></a>
+        <?php endforeach; ?>
+    </div>
+    <div class="hr"></div>
+    <div class="search_tags">
+        <span class="desc">产品状态</span>
+        <a href="<?= URL('/products', array_merge($get_form, ['status' => 0])) ?>" class="<?= !$get_form['status'] ? 'active' : ''?>">全部</a>
+        <?php foreach(\Gini\ORM\Product::$STATUS as $k => $v): ?>
+            <a href="<?= URL('/products', array_merge($get_form, ['status' => (int)$k])) ?>" class="<?= $get_form['status'] == $k ? 'active' : ''?>"><?= $v ?></a>
+        <?php endforeach; ?>
+    </div>
+</div>
+<div class="hr_2"></div>
+<div class="products">
+    <table class="table table-hover">
+        <tbody>
+            <?php for($num=0; $num <= 8; $num++): ?>
+            <tr>
+                <td class="col-md-4">
+                    <a><p class="pro-name">煎饼理财·开元6号集合资金信托计划-685天</p></a>
+                    <span class="tag-in-table-title">预售</span>
+                </td>
+                <td>
+                    <p class="pro-type">固定收益</p>
+                </td>
+                <td>
+                    <p class="pro-data red">
+                        <strong>8.60<small>%</small></strong>
+                    </p>
+                    <p class="pro-remark">业绩比较基准</p>
+                </td>
+                <td>
+                    <p class="pro-data">685天 </p>
+                    <p class="pro-remark">期限</p>
+                </td>
+                <td>
+                    <p class="pro-data">300万</p>
+                    <p class="pro-remark">起购(元)</p>
+                </td>
+                <td>
+                    <p class="pro-btn text-right">
+                        <a class="btn" href="<?= URL("/product/{$num}") ?>"><?= T('查看详情') ?></a>
+                    </div>
+                </td>
+            </tr>
+            <?php endfor; ?>
+        </tbody>
+    </table>
+</div>
