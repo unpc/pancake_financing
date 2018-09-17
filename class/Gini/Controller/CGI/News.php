@@ -8,10 +8,22 @@ class News extends Layout\Index
     {
         $form = $this->form();
 
-        $news = a('news', $id);
+        $news = those('news');
 
         $this->view->body = V('news/index', [
             'news' => $news,
+            'form' => $form
+        ]);
+    }
+
+    public function actionProfile($id=0)
+    {
+        $form = $this->form();
+
+        $new = a('news', $id);
+
+        $this->view->body = V('news/profile', [
+            'new' => $new,
             'form' => $form
         ]);
     }

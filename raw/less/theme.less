@@ -295,6 +295,92 @@ html,body {
 					}
 				}
 			}
+			.news-content {
+				padding: 15px 20px;
+				background: #FFF;
+				.title {
+					position: relative;
+					line-height: 22px;
+					padding-left: 15px;
+					padding-bottom: 15px;
+					margin: 0px;
+					border-bottom: 1px solid #EFEFEF;
+					font-size: 22px;
+					font-weight: normal;
+					color: #666;
+					span {
+						position: absolute;
+						top: 0;
+						left: 0;
+						display: inline-block;
+						width: 4px;
+						height: 22px;
+						background-color: @red;
+					}
+				}
+				.list {
+					li {
+						padding: 25px 0px;
+						border-top: 1px solid #f2f2f2;
+						&:first-child {
+							border-top: none;
+						}
+						a {
+							line-height: 20px;
+							font-size: 18px;
+							overflow: hidden;
+							color: #333;
+							text-decoration: none;
+							&:hover {
+								color: @red;
+							}
+						}
+						.desc {
+							margin: 12px 0;
+							line-height: 22px;
+							font-size: 14px;
+							color: #666;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							display: -webkit-box;
+							-webkit-box-orient: vertical;
+							-webkit-line-clamp: 2;
+						}
+						.time {
+							line-height: 14px;
+							font-size: 14px;
+							color: #999;
+						}
+					}
+				}
+			}
+			.news-content {
+				padding: 25px 30px;
+				.info-header {
+					padding-bottom: 25px;
+					border-bottom: 1px solid #e8e8e8;
+					h1 {
+						line-height: 40px;
+						padding-bottom: 16px;
+						font-size: 26px;
+						font-weight: bold;
+						margin: 0px;
+					}
+					p {
+						line-height: 14px;
+						margin: 0px;
+						color: #666;
+					}
+					i {
+						font-size: 14px;
+						margin: 0px 10px;
+					}
+					a {
+						color: @red;
+						text-decoration: none;
+					}
+				}
+			}
 		}
 
 		.product-list {
@@ -591,6 +677,9 @@ html,body {
 		}
 		#body .products .table .pro-btn .btn {
 			padding: 2px 6px;
+		}
+		#body .slider .news-content .list li a {
+			width: 300px;
 		}
 	}
 }

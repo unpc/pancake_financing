@@ -3,4 +3,17 @@
         <li><a href="<?= URL('/') ?>">首页</a></li>
         <li class="active"><?= T('新闻公告') ?></li>
     </ol>
+    <div class="news-content">
+        <h1 class="title"><span></span>新闻公告</h1>
+        <ul class="list">
+            <?php for($num=1;$num<=5;$num++): ?>
+            <li>
+                <a href="<?= URL("/news/profile/{$num}") ?>">每日经济资讯（9月10日）|中国8月出口（以人民币计）同比增长7.9%</a>
+                <p class="desc">今日头条经济参考报头版刊文称，要坚定不移地继续支持民营经济，坚定企业家信心、稳定企业家预期，关键是要加快破解制约民营企业发展的重大难题，营造民营企业发展的良好环境，让民营企业真正从政策中增强获得感。与此同时，民营企业自身也需要坚定信心，抓住机遇，积极适应经济转型、进行结构调整。</p>
+                <p class="time">2018-09-17</p>
+            </li>
+            <?php endfor; ?>
+        </ul>
+    </div>
+    <div class="hr"></div>
 </div>
