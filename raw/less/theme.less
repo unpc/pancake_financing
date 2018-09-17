@@ -12,6 +12,7 @@ html,body {
 	ol, ul, li {
 		list-style: none;
 		display: block;
+		padding: 0;
 	}
 
 	a.btn {
@@ -52,11 +53,11 @@ html,body {
 			font-size: 12px;
 		}
 		.header-menu {
-			background: @red;
+			background: #FEFFFF;
+			padding: 10px 10%;
 			a.logo {
 				font-size: 28px;
-				color: #FFF;
-				font-weight: 700;
+				color: @red;
 				text-decoration: none;
 			}
 			.menu {
@@ -68,16 +69,16 @@ html,body {
 					height: 33px;
 					font-size: 18px;
 					line-height: 33px;
-					border-bottom: 2px @font-color solid;
+					border-bottom: 2px #333 solid;
 					margin-left: 30px;
 					&:hover, &.active {
-						border-bottom: 2px #FFF solid;
+						border-bottom: 2px @red solid;
 						a {
-							color: #FFF;
+							color: @red;
 						}
 					}
 					a {
-						color: @font-color;
+						color: #333;
 						text-decoration: none;
 					}
 				}
@@ -242,6 +243,56 @@ html,body {
 				}
 				.desc-box {
 					padding: 15px 25px;
+					.nav-tabs {
+						li {
+							a {
+								font-size: 18px;
+								color: #333;
+							}
+							&.active {
+								a {
+									border: none;
+									border-bottom: 2px solid @red;
+									color: @red;
+								}
+							}
+							&:not(.active):hover {
+								a {
+									border: none;
+									color: @red;
+									background: #FFF;
+								}
+							}
+						}
+					}
+					.product-desc {
+						margin: 15px 25px 50px;
+						.row {
+							margin: 0px;
+						}
+						.title {
+							padding: 15px 0;
+							line-height: 16px;
+							font-size: 16px;
+							font-weight: bold;
+							color: #333;
+							margin: 0px;
+						}
+						.bg {
+							color: #666;
+							background-color: #DDDDDD;
+						}
+						.body {
+    						background-color: #EFEFEF;
+						}
+						.bg, .body {
+							display: table-cell;
+							padding: 9px 0 9px 9px;
+							line-height: 16px;
+							font-size: 14px;
+							border-bottom: 2px solid #FFF;
+						}
+					}
 				}
 			}
 		}
@@ -519,6 +570,27 @@ html,body {
 				font-size: 12px;
 				color: @red;
 			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	body {
+		#header .header-top, #header .header-menu, #body .products, #footer,  {
+			padding: 10px 5px;
+		}
+		#body .slider {
+			margin: 10px 5px;
+		}
+		#header .header-menu .menu {
+			float: left;
+		}
+		#body .products .table .pro-name {
+			padding-left: 5px;
+			width: 180px;
+		}
+		#body .products .table .pro-btn .btn {
+			padding: 2px 6px;
 		}
 	}
 }

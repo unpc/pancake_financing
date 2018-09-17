@@ -1,6 +1,6 @@
 <div class="header-top">
 	<div class="row">
-		<div class="col-md-6 col-sm-12">
+		<div class="col-md-6 col-xs-6">
 			<?php $me = _G('ME'); if ($me->id):  ?>
 				<?= T('您好, %name', ['%name' => $me->name]) ?>&#160;
 				<a class="white" href="<?= URL('/logout') ?>"><i class="fa fa-sign-out"></i>&#160;<?= T('退出') ?></a>
@@ -8,23 +8,23 @@
 				<?= T('您好，欢迎来到煎饼理财！') ?>
 			<?php endif; ?>
 		</div>
-		<div class="col-md-6 col-sm-12">
-			<div class="text-right">财富服务热线：4008-819-888</div>
+		<div class="col-md-6 col-xs-6">
+			<div class="text-right"><span class="hidden-xs">财富服务热线：</span>400-961-8893</div>
 		</div>
 	</div>
 </div>
-<div class="header-menu" style="padding: 10px 10%;">
+<div class="header-menu">
 	<div class="row">
-		<div class="col-md-4 col-sm-hide">
+		<div class="col-md-4 hidden-xs">
 			<a href="<?= URL('/') ?>" class="logo">
-				<img src="<?= URL('/assets/img/logo.png') ?>" />
+				<img src="<?= URL('/assets/img/logo.png') ?>" height="60px" />
 				<?= T('煎饼理财') ?>
 			</a>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-8 col-xs-12">
 			<ul class="menu float-right">
 				<li class="<?= ($selected == 'index' || !$selected ) ? 'active' : '' ?>" ><a href="<?= URL('/') ?>"><?= T('首&#160;页') ?></a></li>
-				<li class="<?= $selected == 'products' ? 'active' : '' ?>" ><a href="<?= URL('/products') ?>"><?= T('产&#160;品') ?></a></li>
+				<li class="<?= ($selected == 'products' || $selected == 'product') ? 'active' : '' ?>" ><a href="<?= URL('/products') ?>"><?= T('产&#160;品') ?></a></li>
 				<li class="<?= $selected == 'news' ? 'active' : '' ?>" ><a href="<?= URL('/news') ?>"><?= T('新闻公告') ?></a></li>
 				<li class="<?= $selected == 'about' ? 'active' : '' ?>" ><a href="<?= URL('/about') ?>"><?= T('联系我们') ?></a></li>
 			</ul>
