@@ -1,0 +1,76 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li class="active"><?= T('个人中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+            <a class="list-group-item <?= $type == 'info' ? 'active' : ''?>"><?= T('基本信息') ?></a>
+            <a href="<?= URL('/mine/product') ?>" class="list-group-item <?= $type == 'product' ? 'active' : ''?>"><?= T('所购产品') ?></a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="mine-container">
+                <h1 class="title"><span></span>基本信息</h1>
+                <form method="POST" id="info-form">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-2 col-xs-4"><?= T('手机号') ?></td>
+                                <td class="col-md-4 col-xs-8">
+                                    <input class="form-control" type="text" name="phone" disabled value="<?= H($me->phone) ?>" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><?= T('邮箱') ?></td>
+                                <td>
+                                    <input class="form-control" type="text" name="email" value="<?= H($me->email) ?>" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><?= T('单位名称') ?></td>
+                                <td>
+                                    <input class="form-control" type="text" name="group" value="<?= $me->group_name ?>" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><button class="btn btn-primary" type="submit" form="info-form"><?= T('修改信息') ?></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <h1 class="title"><span></span><?= T('密码信息') ?></h1>
+                <form method="POST" id="password-form">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-2 col-xs-4"><?= T('密码') ?></td>
+                                <td class="col-md-4 col-xs-8"><input class="form-control" type="text" name="group" value="<?= $me->group_name ?>" /></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2 col-xs-4"><?= T('验证码') ?></td>
+                                <td class="col-md-4 col-xs-8"><input class="form-control" type="text" name="group" value="<?= $me->group_name ?>" /></td>
+                                <td><a class="btn btn-primary"><?= T('发送验证码') ?></a></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><button class="btn btn-primary" type="submit" form="password-form"><?= T('修改密码') ?></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>

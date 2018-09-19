@@ -1,4 +1,4 @@
-<div class="slider">
+<div class="slider-block">
     <?php $me = _G('ME') ?>
     <div class="login-box">
         <div class="text-center title"><?= T('煎饼理财') ?></div>
@@ -27,7 +27,7 @@
                 <li data-target="#carousel" data-slide-to="<?= $num ?>" class="<?= $num ==0 ? 'active' : ''?>"></li>
             <?php $num ++; endforeach; ?>    
         </ol>
-        <div class="carousel-inner" role="listbox" style="min-height: 300px;">
+        <div class="carousel-inner" role="listbox" style="height: 300px;">
             <?php $num = 0; foreach ($imgs as $file): ?>
                 <div class="item <?= $num ==0 ? 'active' : ''?>">
                     <img src="<?= URL("/assets/img/{$file}") ?>" style="width: 100%; height: 100%; max-width: 100%; display: block;" />

@@ -1,7 +1,6 @@
 /*部分样式强行覆盖admin.css和底层样式😆*/
 
-@red:		 rgb(156, 12, 19);
-@red:		rgb(230, 0, 0);
+@red:		#F4610C;
 @font-color: #CCCCCC;
 
 /*整体样式加载*/
@@ -16,15 +15,15 @@ html,body {
 	}
 
 	a.btn {
-		margin: 10px 10%;
+		margin: 10px 14%;
 		border-radius: 0px;
 		width: auto;
 		&.btn-primary {
 			background: @red;
 			border-color: @red;
 			&:hover {
-				background: #B7272E;
-				border-color: #B7272E;
+				background: #FF810C;
+				border-color: #FF810C;
 			}
 		}
 	}
@@ -48,13 +47,13 @@ html,body {
 		flex: 0 0 auto;
 		.header-top {
 			background-color:#666666;
-			padding: 5px 10%;
+			padding: 5px 14%;
 			color: #FEFEFE;
 			font-size: 12px;
 		}
 		.header-menu {
 			background: #FEFFFF;
-			padding: 10px 10%;
+			padding: 10px 14%;
 			a.logo {
 				font-size: 28px;
 				color: @red;
@@ -62,17 +61,16 @@ html,body {
 			}
 			.menu {
 				float: right;
-				margin-top: 14px;
 				li {
 					position: relative;
 					float: left;
-					height: 33px;
-					font-size: 18px;
-					line-height: 33px;
-					border-bottom: 2px #333 solid;
-					margin-left: 30px;
+					height: 46px;
+					font-size: 22px;
+					line-height: 46px;
+					border-bottom: 3px #333 solid;
+					margin-left: 5rem;
 					&:hover, &.active {
-						border-bottom: 2px @red solid;
+						border-bottom: 3px @red solid;
 						a {
 							color: @red;
 						}
@@ -88,8 +86,8 @@ html,body {
 
 	#body {
 		flex: 1 0 auto;
-		.slider {
-			margin: 0px 10%;
+		.slider, .slider-block {
+			margin: 0px 14%;
 			position: relative;
 			.breadcrumb {
 				background: transparent;
@@ -117,7 +115,7 @@ html,body {
 				position: absolute;
 				width: 260px;
 				height: 100%;
-				right: 0px;
+				right: 14%;
 				background-color: rgba(0,0,0,0.6);
 				z-index: 9999;
 				.title {
@@ -353,6 +351,11 @@ html,body {
 						}
 					}
 				}
+				.about-content {
+					margin: 15px 0px;
+					font-size: 16px;
+					color: #666;
+				}
 			}
 			.news-content {
 				padding: 25px 30px;
@@ -382,9 +385,12 @@ html,body {
 				}
 			}
 		}
+		.slider-block {
+			margin: 0px;
+		}
 
 		.product-list {
-			padding: 20px 10%;
+			padding: 20px 14%;
 			.product-desc {
 				padding: 20px 23px 0;
     			text-align: center;
@@ -472,14 +478,14 @@ html,body {
 					padding-top: 18px;
 					text-align: center;
 					a.btn {
-						margin: 0px 10%;
+						margin: 0px 20%;
 					}
 				}
 			}
 		}
 
 		.products {
-			padding:0 10%;
+			padding:0 14%;
 			.table {
 				background: #FFF;
 				.panel-title {
@@ -562,7 +568,7 @@ html,body {
 			}
 		}
 		.card-list {
-			padding: 0 10%;
+			padding: 0 14%;
 			.news-list {
 				background: #FFF;
 				padding: 0 10px;
@@ -616,11 +622,70 @@ html,body {
 				}
 			}
 		}
+		.list-group {
+			.list-group-item {
+				border-radius: 0px;
+				&.active {
+					background-color: @red;
+					border-color: @red;
+					&:focus, &:hover{
+						background-color: @red;
+						border-color: @red;
+					}
+				}
+			}	
+		}
+		.mine-container {
+			background: #FEFFFF;
+			box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+			height: 100%;
+			padding: 15px 10px;
+			font-size: 16px;
+    		color: #666;
+			.title {
+				position: relative;
+				line-height: 22px;
+				padding-left: 15px;
+				padding-bottom: 15px;
+				margin: 0px;
+				border-bottom: 1px solid #EFEFEF;
+				font-size: 22px;
+				font-weight: normal;
+				color: #666;
+				span {
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: inline-block;
+					width: 4px;
+					height: 22px;
+					background-color: @red;
+				}
+			}
+			table > tbody > tr > td {
+				border-top: none;
+				vertical-align: middle;
+				a.btn {
+					margin: 0px;
+				}
+				button.btn {
+					border-radius: 0px;
+					&.btn-primary {
+						background-color: #449d44;
+						border-color: #398439;
+						&:hover {
+							background: #398439;
+						}
+					}
+				}
+
+			}
+		}
 	}
 	#footer {
 		flex: 0 0 auto;
 		margin-top: 10px;
-		padding: 20px 10%;
+		padding: 20px 14%;
 		border-top: 1px solid #E8E8E8;
 		background-color: #FAFAFA;
 		a {
@@ -665,7 +730,7 @@ html,body {
 		#header .header-top, #header .header-menu, #body .products, #footer,  {
 			padding: 10px 5px;
 		}
-		#body .slider {
+		#body .slider, #body .slider-block {
 			margin: 10px 5px;
 		}
 		#header .header-menu .menu {

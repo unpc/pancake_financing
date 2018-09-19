@@ -1,0 +1,21 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li class="active"><?= T('个人中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+            <a href="<?= URL('/mine') ?>" class="list-group-item <?= $type == 'info' ? 'active' : ''?>"><?= T('基本信息') ?></a>
+            <a class="list-group-item <?= $type == 'product' ? 'active' : ''?>"><?= T('所购产品') ?></a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="mine-container">
+                
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>
