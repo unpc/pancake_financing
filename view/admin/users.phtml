@@ -1,0 +1,57 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('管理中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <div class="admin-container">
+                <h1 class="title">
+                    <span></span>用户列表
+                    <p class="title-button">
+                        <a href="gini-ajax:ajax/user/add"><i class="fa fa-fw fa-plus"></i></a>
+                    </p>
+                </h1>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="bg bg-primary">
+                            <td><?= T('姓名') ?></td>
+                            <td class="hidden-xs"><?= T('邮箱') ?></td>
+                            <td class="hidden-xs"><?= T('单位名称') ?></td>
+                            <td><?= T('类型') ?></td>
+                            <td><?= T('权限') ?></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <?php if (!count($users)): ?>
+                            <tr>
+                                <td colspan="6"><p class="text-center red"><?= T('未查询到匹配的用户!') ?></p></td>
+                            </tr>
+                        <?php
+                            else: foreach($users as $user): 
+                                $perms = [];
+                                if ($user->is_admin) $perms[] = '管理员';
+                                if ($user->is_runner) $perms[] = '合同工';
+                        ?>
+                            <tr>
+                                <td><?= T($user->name) ?></td>
+                                <td class="hidden-xs"><?= T($user->email) ?: '--' ?></td>
+                                <td class="hidden-xs"><?= T($user->group_name) ?: '--' ?></td>
+                                <td><?= \Gini\ORM\User::$TYPE[$user->type] ?></td>
+                                <td><?= join(', ', $perms) ?: '无' ?></td>
+                                <td><a href="gini-ajax:ajax/user/edit/<?= (int)$user->id ?>"><i class="fa fa-fw fa-edit"></i></a></td>
+                            </tr>
+                        <?php endforeach; endif;?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>

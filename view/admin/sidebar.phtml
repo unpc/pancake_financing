@@ -1,0 +1,5 @@
+<div class="list-group">
+    <a href="<?= URL('/manage') ?>" class="list-group-item <?= $active == 'users' ? 'active' : ''?>"><?= T('用户管理') ?></a>
+    <a href="<?= URL('/manage/product') ?>" class="list-group-item <?= $active == 'product' ? 'active' : ''?>"><?= T('产品管理') ?></a>
+    <a href="<?= URL('/manage/agreement') ?>" class="list-group-item <?= $active == 'agreement' ? 'active' : ''?>"><?= T('合同管理') ?></a>
+</div>

@@ -7,16 +7,25 @@
     <div class="row">
         <div class="col-md-2">
             <div class="list-group">
-            <a class="list-group-item <?= $type == 'info' ? 'active' : ''?>"><?= T('基本信息') ?></a>
-            <a href="<?= URL('/mine/product') ?>" class="list-group-item <?= $type == 'product' ? 'active' : ''?>"><?= T('所购产品') ?></a>
+                <a class="list-group-item <?= $type == 'info' ? 'active' : ''?>"><?= T('基本信息') ?></a>
+                <a href="<?= URL('/mine/product') ?>" class="list-group-item <?= $type == 'product' ? 'active' : ''?>"><?= T('所购产品') ?></a>
+                <a href="<?= URL('/manage') ?>" class="list-group-item"><?= T('管理界面') ?></a>
             </div>
         </div>
         <div class="col-md-10">
             <div class="mine-container">
                 <h1 class="title"><span></span>基本信息</h1>
                 <form method="POST" id="info-form">
-                    <table class="table">
+                    <table class="table m">
                         <tbody>
+                            <tr>
+                                <td class="col-md-2 col-xs-4"><?= T('姓名') ?></td>
+                                <td class="col-md-4 col-xs-8">
+                                    <input class="form-control" type="text" name="name" value="<?= H($me->name) ?>" />
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td class="col-md-2 col-xs-4"><?= T('手机号') ?></td>
                                 <td class="col-md-4 col-xs-8">

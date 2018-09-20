@@ -13,12 +13,23 @@ class User extends Object
     public $phone       = 'string:120';
     public $ctime       = 'datetime';
     public $group       = 'array';
+    public $type        = 'int';
+    public $is_admin    = 'int,default:0';
+    public $is_runner   = 'int,default:0';
 
     protected static $db_index = array(
         'unique:username',
         'name_abbr',
         'ctime',
         );
+    
+    CONST TYPE_USER = 0;
+    CONST TYPE_WORKER = 1;
+
+    public static $TYPE = [
+        self::TYPE_USER => '客户',
+        self::TYPE_WORKER => '职工'
+    ];
 
     public function isAllowedTo($action, $object = null, $when = null, $where = null) {
 

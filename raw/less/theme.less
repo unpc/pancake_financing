@@ -30,11 +30,21 @@ html,body {
 	
 	.red { color: @red; }
 	.white { color: #FFF;}
-
 	.relative { position: relative; }
 
 	.hr { height: 10px; }
 	.hr_2 { height: 20px; }
+
+	.modal-content {
+		border-radius: 0px;
+		.alert { margin-bottom: 0px; padding: 15px 0px; }
+		.alert-dismissible { padding-right: 20px; }
+		.modal-title {
+			color: @red;
+		}
+	}
+
+	
 
 
 	#wrap {
@@ -635,7 +645,7 @@ html,body {
 				}
 			}	
 		}
-		.mine-container {
+		.mine-container, .admin-container {
 			background: #FEFFFF;
 			box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 			height: 100%;
@@ -662,7 +672,7 @@ html,body {
 					background-color: @red;
 				}
 			}
-			table > tbody > tr > td {
+			table.m > tbody > tr > td {
 				border-top: none;
 				vertical-align: middle;
 				a.btn {
@@ -679,6 +689,22 @@ html,body {
 					}
 				}
 
+			}
+		}
+		.admin-container {
+			a {
+				color: @red;
+			}
+			.title {
+				.title-button {
+					float: right;
+				}
+			}
+			.bg-primary {
+				background: @red;
+				&:hover {
+					background: @red;
+				}
 			}
 		}
 	}
