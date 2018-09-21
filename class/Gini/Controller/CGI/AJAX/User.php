@@ -79,15 +79,14 @@ class User extends \Gini\Controller\CGI
                 }
                 $validator->done();
 
-                $new_user = a('user');
-                $new_user->name = H($form['name']);
-                $new_user->username = $username;
-                $new_user->email = H($form['email']);
-                $new_user->type = (int)$form['type'];
-                $new_user->group_name = H($form['group_name']);
-                $new_user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
-                $new_user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
-                $new_user->save();
+                $user->name = H($form['name']);
+                $user->username = $username;
+                $user->email = H($form['email']);
+                $user->type = (int)$form['type'];
+                $user->group_name = H($form['group_name']);
+                $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
+                $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
+                $user->save();
 
                 if ($form['password']) {
                     $auth = \Gini\IoC::construct('\Gini\Auth', $username);
@@ -112,12 +111,12 @@ class User extends \Gini\Controller\CGI
         if (!$user->id) {
             $this->redirect('error/404');
         }
-        if (!$me->isAllowedTo('删除用户', $user)) {
-            return;
-        }
 
         //remove this user
         $user->delete();
+
+        $auth = \Gini\IoC::construct('\Gini\Auth', $user->username);
+        $auth->remove();
 
         return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
     }

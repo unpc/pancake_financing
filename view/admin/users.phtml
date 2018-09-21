@@ -10,6 +10,7 @@
             <?= V('admin/sidebar', ['active' => $active]) ?>
         </div>
         <div class="col-md-10">
+            <?= V('confirm') ?>
             <div class="admin-container">
                 <h1 class="title">
                     <span></span>用户列表
@@ -45,7 +46,13 @@
                                 <td class="hidden-xs"><?= T($user->group_name) ?: '--' ?></td>
                                 <td><?= \Gini\ORM\User::$TYPE[$user->type] ?></td>
                                 <td><?= join(', ', $perms) ?: '无' ?></td>
-                                <td><a href="gini-ajax:ajax/user/edit/<?= (int)$user->id ?>"><i class="fa fa-fw fa-edit"></i></a></td>
+                                <td>
+                                    <a href="gini-ajax:ajax/user/edit/<?= (int)$user->id ?>"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a 
+                                        data-confirm="<?= H(T('您确认删除用户:user吗?', [':user'=>$user->name])) ?>"
+                                        data-confirm-description="<?= H(T('点击确认后会删除该用户信息, 请谨慎处理!')) ?>"
+                                        href="gini-ajax:ajax/user/delete/<?= (int)$user->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                </td>
                             </tr>
                         <?php endforeach; endif;?>
                     </tbody>

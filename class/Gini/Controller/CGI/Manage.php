@@ -22,4 +22,22 @@ class Manage extends Layout\Index
             'users' => $users
         ]);
     }
+
+    public function actionProduct()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $products = those('product');
+
+        $form = $this->form();
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/products", [
+            'form' => $form,
+            'active' => 'product',
+            'products' => $products
+        ]);
+    }
 }

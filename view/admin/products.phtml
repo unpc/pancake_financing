@@ -1,0 +1,48 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('产品中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <?= V('confirm') ?>
+            <div class="admin-container">
+                <h1 class="title">
+                    <span></span>产品列表
+                    <p class="title-button">
+                        <a href="gini-ajax:ajax/product/add"><i class="fa fa-fw fa-plus"></i></a>
+                    </p>
+                </h1>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="bg bg-primary">
+                            <td><?= T('产品全称') ?></td>
+                            <td class="hidden-xs"><?= T('产品成立日') ?></td>
+                            <td><?= T('产品期限') ?></td>
+                            <td class="hidden-xs"><?= T('发行方') ?></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <?php if (!count($products)): ?>
+                            <tr>
+                                <td colspan="5"><p class="text-center red"><?= T('未查询到匹配的产品!') ?></p></td>
+                            </tr>
+                        <?php
+                            else: foreach($products as $product): 
+                        ?>
+                            <tr>
+                            </tr>
+                        <?php endforeach; endif;?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>
