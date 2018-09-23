@@ -37,6 +37,17 @@
                             else: foreach($products as $product): 
                         ?>
                             <tr>
+                                <td><?= H($product->title) ?></td>
+                                <td class="hidden-xs"><?= T($product->create_day) ?></td>
+                                <td><?= T('%dead 天', ['%dead' => $product->dead_day]) ?></td>
+                                <td class="hidden-xs"><?= T($product->Issuer) ?></td>
+                                <td>
+                                    <a href="gini-ajax:ajax/product/edit/<?= (int)$product->id ?>"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a 
+                                        data-confirm="<?= H(T('您确认删除产品:product吗?', [':product'=>$product->title])) ?>"
+                                        data-confirm-description="<?= H(T('点击确认后会删除该产品信息, 请谨慎处理!')) ?>"
+                                        href="gini-ajax:ajax/product/delete/<?= (int)$product->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                </td>
                             </tr>
                         <?php endforeach; endif;?>
                     </tbody>

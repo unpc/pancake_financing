@@ -5,21 +5,21 @@ namespace Gini\ORM;
 class Product extends Object
 {
     public $title = 'string:100';
-    public $type = 'string:50';
     public $rate = 'string:50';
     public $rate_desc = 'string:50';
     public $dead_day = 'int';
     public $open_day = 'datetime';
-    public $purchase = 'int';
-    public $purchase_step = 'int';
-    public $admin_rate = 'int';
+    // 购买金额
+    public $purchase = 'string:100';
+    public $purchase_object = 'string:100';
+    public $admin_rate = 'string:50';
+
     public $distribution = 'string:100';
     public $status = 'int,default:0';
     public $ctime = 'datetime';
 
     protected static $db_index = [
         'title',
-        'type',
         'status',
         'ctime',
     ];

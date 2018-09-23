@@ -1,0 +1,143 @@
+<div id="edit-product-modal" class="modal fade in">
+<div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?= H(T('修改产品')) ?></h4>
+        </div>
+    </div>
+    <div class="modal-body" style="padding-top:20px;">
+        <form id="edit-product-form" method="POST" action="gini-ajax:ajax/product/edit/<?= (int)$product->id ?>">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['title']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['title'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['title']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="title"><?= H('产品全称') ?></label>
+                    <input id="title" name="title" type="text" class="form-control" value="<?= H($form['_errors'] ? $form['title'] : $product->title) ?>"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label class="control-label" for="Issuer"><?= H('发行方') ?></label>
+                    <input id="Issuer" name="Issuer" type="text" class="form-control" value="<?= H($form['_errors'] ? $form['Issuer'] : $product->Issuer) ?>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['create_day']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['create_day'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['create_day']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="create_day"><?= H(T('产品成立日')) ?></label>
+                    <input id="create_day" name="create_day" type="text" class="form-control date" autocomplete="off" value="<?= $form['_errors'] ? $form['create_day'] : ($product->create_day ?: date('Y-m-d')) ?>" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <label for="dead_day" class="control-label"><?= H(T('产品期限')) ?></label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="dead_day" name="dead_day" autocomplete="off" value="<?= H($form['_errors'] ? $form['dead_day'] : $product->dead_day) ?>" >
+                        <div class="input-group-addon"><?= T('天') ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <label for="open_day" class="control-label"><?= H(T('开放日')) ?></label>
+                    <input type="text" class="form-control date" id="open_day" name="open_day" autocomplete="off" value="<?= $form['_errors'] ? $form['open_day'] : ($product->open_day ?: date('Y-m-d')) ?>" >
+                </div>
+            </div>           
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="open_day_rule"><?= H(T('开放日规则')) ?></label>
+                    <input id="open_day_rule" name="open_day_rule" type="text" class="form-control" autocomplete="off" value="<?= H($form['_errors'] ? $form['open_day_rule'] : $product->open_day_rule) ?>" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['purchase']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['purchase'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['purchase']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="purchase"><?= H(T('购买金额')) ?></label>
+                    <input id="purchase" name="purchase" type="text" class="form-control" autocomplete="off" value="<?= H($form['_errors'] ? $form['purchase'] : $product->purchase) ?>" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <label for="admin_rate" class="control-label"><?= H(T('规定管理费率')) ?></label>
+                    <input type="text" class="form-control" id="admin_rate" name="admin_rate" autocomplete="off" value="<?= H($form['_errors'] ? $form['admin_rate'] : $product->admin_rate) ?>" >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <label for="purchase_object" class="control-label"><?= H(T('购买对象')) ?></label>
+                    <input type="text" class="form-control" id="purchase_object" name="purchase_object" autocomplete="off" value="<?= H($form['_errors'] ? $form['purchase_object'] : $product->purchase_object) ?>" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <label for="distribution" class="control-label"><?= H(T('分配方式')) ?></label>
+                    <input type="text" class="form-control" id="distribution" name="distribution" autocomplete="off" value="<?= H($form['_errors'] ? $form['distribution'] : $product->distribution) ?>" >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group label-floating is-empty">
+                    <label for="redemption_rate" class="control-label"><?= H(T('赎回费率')) ?></label>
+                    <input type="text" class="form-control" id="redemption_rate" name="redemption_rate" autocomplete="off" value="<?= H($form['_errors'] ? $form['redemption_rate'] : $product->redemption_rate) ?>" >
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button class="btn btn-save btn-raised" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times fa-fw "></i><?= H(T('关闭')) ?></button>
+            <button class="btn btn-ok btn-raised" form="edit-product-form" type="submit"><i class="fa fa-save fa-fw"></i> <?= H(T('保存')) ?></button>
+        <div class="row">
+    </div>
+</div></div>
+</div>
+<script data-ajax="true">
+require(['main'], function($){
+
+    var $modal = $('#edit-product-modal');
+    $modal
+    .on('hidden.bs.modal', function(){
+        $modal.remove();
+    })
+    .modal();
+
+    $('#edit-product-form').on('ajax-success', function(){
+        $modal
+        .removeAttr('id').modal('hide')
+        .find('[id]').removeAttr('id');
+    });
+
+    require(['bootstrap-select', 'css!../css/bootstrap-select'], function(){
+        $('.selectpicker').selectpicker()
+    })
+    require(['bootstrap-datepicker', 'locales/bootstrap-datepicker.zh-CN', 'css!../css/bootstrap-datepicker'], function(){
+        $('.date').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN',
+            minView: 'day'
+        })
+    })
+});
