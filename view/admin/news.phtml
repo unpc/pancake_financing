@@ -1,0 +1,59 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('管理中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <?= V('confirm') ?>
+            <div class="admin-container">
+                <h1 class="title">
+                    <span></span>新闻公告
+                    <p class="title-button">
+                        <a href="gini-ajax:ajax/news/add"><i class="fa fa-fw fa-plus"></i></a>
+                    </p>
+                </h1>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="bg bg-primary">
+                            <td><?= T('标题') ?></td>
+                            <td class="hidden-xs"><?= T('内容') ?></td>
+                            <td><?= T('发布时间') ?></td>
+                            <td><?= T('创建时间') ?></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <?php if (!count($news)): ?>
+                            <tr>
+                                <td colspan="5"><p class="text-center red"><?= T('未查询到匹配的新闻信息!') ?></p></td>
+                            </tr>
+                        <?php
+                            else: foreach($news as $new):
+                        ?>
+                            <tr>
+                                <td><?= T($new->title) ?></td>
+                                <td class="hidden-xs"><?= T($new->content) ?: '--' ?></td>
+                                <td><?= T($new->publish) ?></td>
+                                <td><?= T($new->ctime) ?></td>
+                                <td>
+                                    <a href="gini-ajax:ajax/news/edit/<?= (int)$new->id ?>"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a 
+                                        data-confirm="<?= H(T('您确认删除新闻:title吗?', [':title'=>$new->title])) ?>"
+                                        data-confirm-description="<?= H(T('点击确认后会删除该新闻信息, 请谨慎处理!')) ?>"
+                                        href="gini-ajax:ajax/news/delete/<?= (int)$user->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; endif;?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>

@@ -1,0 +1,65 @@
+<div id="add-news-modal" class="modal fade in">
+<div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?= H(T('添加新闻公告')) ?></h4>
+        </div>
+    </div>
+    <div class="modal-body" style="padding-top:20px;">
+        <form id="add-news-form" method="POST" action="gini-ajax:ajax/news/add">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group <?= isset($form['_errors']['username']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['username'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['username']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="username"><?= H('新闻标题') ?></label>
+                        <input id="username" name="username" type="text" class="form-control" value="<?= H($form['username']) ?>"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label" for="username"><?= H('内容') ?></label>
+                        <textarea name="content" class="editor form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button class="btn btn-save btn-raised" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times fa-fw "></i><?= H(T('关闭')) ?></button>
+            <button class="btn btn-ok btn-raised" form="add-news-form" type="submit"><i class="fa fa-plus fa-fw"></i> <?= H(T('添加')) ?></button>
+        <div class="row">
+    </div>
+</div></div>
+</div>
+<script data-ajax="true">
+require(['main'], function($){
+
+    var $modal = $('#add-news-modal');
+    $modal
+    .on('hidden.bs.modal', function(){
+        $modal.remove();
+    })
+    .modal();
+
+    $('#add-news-form').on('ajax-success', function(){
+        $modal
+        .removeAttr('id').modal('hide')
+        .find('[id]').removeAttr('id');
+    });
+
+    require(['bootstrap-select', 'css!../css/bootstrap-select'], function(){
+        $('.selectpicker').selectpicker()
+    })
+
+    require(['bootstrap-wysiwyg'], function(){
+        $('.editor').wysiwyg()
+    })
+});

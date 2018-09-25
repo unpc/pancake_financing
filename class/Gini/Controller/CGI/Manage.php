@@ -40,4 +40,36 @@ class Manage extends Layout\Index
             'products' => $products
         ]);
     }
+
+    public function actionNews()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $news = those('news');
+        $form = $this->form();
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/news", [
+            'form' => $form,
+            'active' => 'news',
+            'news' => $news
+        ]);
+    }
+
+    public function actionAbout()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $form = $this->form();
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/about", [
+            'form' => $form,
+            'active' => 'about'
+        ]);
+    }
 }
