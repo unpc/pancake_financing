@@ -1,0 +1,35 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('管理中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <div class="admin-container">
+                <form method="POST" id="desc-info-form" action="<?= URL('') ?>" >
+                <h1 class="title"><span></span>公司介绍</h1>
+                    <div class="form-group">
+                        <?= V('coder', [
+                            'name' => 'desc_info',
+                            'content' => hub('about_desc_info')
+                        ])?>
+                    </div>
+                <h1 class="title"><span></span>经营范围</h1>
+                    <div class="form-group">
+                        <?= V('coder', [
+                            'name' => 'desc_scope',
+                            'content' => hub('about_desc_scope')
+                        ])?>
+                    </div>
+                </form>
+                <button class="btn btn-primary" type="submit" form="desc-info-form"><?= T('修改信息') ?></button>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>

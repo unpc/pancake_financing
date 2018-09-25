@@ -1,7 +1,8 @@
-<textarea id="editor" name="<?= $name ?: 'content' ?>"><?= $content ?></textarea>
+<?php $uniqid = 'editor-'.uniqid(); ?>
+<textarea id="<?= $uniqid ?>" name="<?= $name ?: 'content' ?>"><?= $content ?></textarea>
 <script>
 (function($){
-    var $edit = KindEditor.create('#editor', {
+    var $edit = KindEditor.create('#<?= $uniqid ?>', {
         filterMode: false,
         width: '100%',
         height: '300px',

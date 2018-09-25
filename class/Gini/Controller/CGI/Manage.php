@@ -66,6 +66,8 @@ class Manage extends Layout\Index
         }
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            Hub('about_desc_info', $form['desc_info']);
+            Hub('about_desc_scope', $form['desc_scope']);
         }
         $this->view->body = V("admin/about", [
             'form' => $form,
