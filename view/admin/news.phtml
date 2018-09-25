@@ -22,31 +22,32 @@
                     <tbody>
                         <tr class="bg bg-primary">
                             <td><?= T('标题') ?></td>
-                            <td class="hidden-xs"><?= T('内容') ?></td>
+                            <td class="col-md-5 hidden-xs"><?= T('内容') ?></td>
                             <td><?= T('发布时间') ?></td>
-                            <td><?= T('创建时间') ?></td>
                             <td></td>
                         </tr>
                     </tbody>
                     <tbody>
                         <?php if (!count($news)): ?>
                             <tr>
-                                <td colspan="5"><p class="text-center red"><?= T('未查询到匹配的新闻信息!') ?></p></td>
+                                <td colspan="4"><p class="text-center red"><?= T('未查询到匹配的新闻信息!') ?></p></td>
                             </tr>
                         <?php
                             else: foreach($news as $new):
+                                $content = preg_replace(['/<script.*>(.*)<\/script>/siU', '/<style.*>(.*)<\/style>/siU'], ['', ''], $new->content);
+                                $content = strip_tags($content);
+                                $content = mb_substr($content, 1, 80);
                         ?>
                             <tr>
                                 <td><?= T($new->title) ?></td>
-                                <td class="hidden-xs"><?= T($new->content) ?: '--' ?></td>
+                                <td class="hidden-xs"><p style="font-size: 12px;"><?= $content ? $content . '...' : '--' ?></p></td>
                                 <td><?= T($new->publish) ?></td>
-                                <td><?= T($new->ctime) ?></td>
                                 <td>
                                     <a href="gini-ajax:ajax/news/edit/<?= (int)$new->id ?>"><i class="fa fa-fw fa-edit"></i></a>
                                     <a 
                                         data-confirm="<?= H(T('您确认删除新闻:title吗?', [':title'=>$new->title])) ?>"
                                         data-confirm-description="<?= H(T('点击确认后会删除该新闻信息, 请谨慎处理!')) ?>"
-                                        href="gini-ajax:ajax/news/delete/<?= (int)$user->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                        href="gini-ajax:ajax/news/delete/<?= (int)$new->id ?>"><i class="fa fa-fw fa-close"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; endif;?>

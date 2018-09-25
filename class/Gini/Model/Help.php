@@ -68,11 +68,28 @@ class Help
     {
         $new = [];
         foreach ($arr1 as $key => $value) {
-            error_log("value:{$value}");
             if ($arr2[$value]) {
                 $new[] = $arr2[$value];
             }
         }
         return join(', ', $new);
+    }
+
+    public static function cutHtml($html='')
+    {
+        $b = [
+            "/<script.*>(.*)<\/script>/siU",
+            '/on(click|dblclick|mousedown|mouseup|mouseover|mousemove|mouseout|keypress|keydown|keyup)="[^"]*"/i',
+            '/on(abort|beforeunload|error|load|move|resize|scroll|stop|unload)="[^"]*"/i', 
+            '/on(blur|change|focus|reset|submit)="[^"]*"/i', 
+            '/on(bounce|finish|start)="[^"]*"/i',
+            '/on(beforecopy|beforecut|beforeeditfocus|beforepaste|beforeupdate|contextmenu|cut)="[^"]*"/i',
+            '/on(drag|dragdrop|dragend|dragenter|dragleave|dragover|dragstart|drop|losecapture|paste|select|selectstart)="[^"]*"/i',
+            '/on(afterupdate|cellchange|dataavailable|datasetchanged|datasetcomplete|errorupdate|rowenter|rowexit|rowsdelete|rowsinserted)="[^"]*"/i',
+            '/on(afterprint|beforeprint|filterchange|help|propertychange|readystatechange)="[^"]*"/i',
+            '/javascript\:.*(\;|")/'
+        ];
+        $c = ['','','','','','','','','','','',''];
+        return preg_replace($b, $c, $html);
     }
 }

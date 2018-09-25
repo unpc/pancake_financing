@@ -14,18 +14,15 @@ class News extends \Gini\Controller\CGI
             try {
 
                 $validator
-                    ->validate('name', $form['name'], T('姓名不能为空!'))
+                    ->validate('title', $form['title'], T('标题不能为空!'))
                     ->done();
 
-                $user = a('user');
-                $user->name = H($form['name']);
-                $user->username = $username;
-                $user->email = H($form['email']);
-                $user->type = (int)$form['type'];
-                $user->group_name = H($form['group_name']);
-                $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
-                $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
-                $user->save();
+                $n = a('news');
+                $n->title = H($form['title']);
+                $n->content = $form['content'];
+                $n->ctime = date('Y-m-d H:i:s');
+                $n->publish = date('Y-m-d H:i:s');
+                $n->save();
 
                 return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
             } catch (\Gini\CGI\Validator\Exception $e) {
@@ -36,5 +33,50 @@ class News extends \Gini\Controller\CGI
         return \Gini\IoC::construct('\Gini\CGI\Response\HTML', V('news/add-news-modal', [
             'form' => $form,
         ]));
+    }
+
+    public function actionEdit($id=0)
+    {
+        $me = _G('ME');
+        $form = $this->form();
+        $new = a('news', $id);
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $validator = new \Gini\CGI\Validator();
+
+            try {
+
+                $validator
+                    ->validate('title', $form['title'], T('标题不能为空!'))
+                    ->done();
+
+                $new->title = H($form['title']);
+                $new->content = $form['content'];
+                $new->publish = date('Y-m-d H:i:s');
+                $new->save();
+
+                return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
+            } catch (\Gini\CGI\Validator\Exception $e) {
+                $form['_errors'] = $validator->errors();
+            }
+        }
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\HTML', V('news/edit-news-modal', [
+            'form' => $form,
+            'new' => $new
+        ]));
+    }
+
+    public function actionDelete($id = 0)
+    {
+        $me = _G('ME');
+        $new = a('news', $id);
+        if (!$new->id) {
+            $this->redirect('error/404');
+        }
+
+        //remove this news
+        $new->delete();
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
     }
 }

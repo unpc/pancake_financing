@@ -1,13 +1,13 @@
-<div id="add-news-modal" class="modal fade in">
+<div id="edit-news-modal" class="modal fade in">
 <div class="modal-dialog"><div class="modal-content">
     <div class="modal-header">
         <div class="alert alert-dismissible alert-primary">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><?= H(T('添加新闻公告')) ?></h4>
+            <h4 class="modal-title"><?= H(T('修改新闻公告')) ?></h4>
         </div>
     </div>
     <div class="modal-body" style="padding-top:20px;">
-        <form id="add-news-form" method="POST" action="gini-ajax:ajax/news/add">
+        <form id="edit-news-form" method="POST" action="gini-ajax:ajax/news/edit/<?= (int)$new->id ?>">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group <?= isset($form['_errors']['title']) ? ' has-error':'' ?>">
@@ -17,7 +17,7 @@
                         </span>
                         <?php } ?>
                         <label class="control-label" for="title"><?= H('新闻标题') ?></label>
-                        <input id="title" name="title" type="text" class="form-control" value="<?= H($form['title']) ?>"/>
+                        <input id="title" name="title" type="text" class="form-control" value="<?= H($form['_errors'] ? $form['title'] : $new->title) ?>"/>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                         <label class="control-label" for="content"><?= H('内容') ?></label>
                         <?= V('coder', [
                             'name' => 'content',
-                            'content' => $form['content']
+                            'content' => $form['_errors'] ? $form['content'] : $new->content
                         ])?>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
     <div class="modal-footer">
         <div class="col-md-12">
             <button class="btn btn-save btn-raised" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times fa-fw "></i><?= H(T('关闭')) ?></button>
-            <button class="btn btn-ok btn-raised" form="add-news-form" type="submit"><i class="fa fa-plus fa-fw"></i> <?= H(T('添加')) ?></button>
+            <button class="btn btn-ok btn-raised" form="edit-news-form" type="submit"><i class="fa fa-save fa-fw"></i> <?= H(T('保存')) ?></button>
         <div class="row">
     </div>
 </div></div>
@@ -45,14 +45,14 @@
 <script data-ajax="true">
 require(['main'], function($){
 
-    var $modal = $('#add-news-modal');
+    var $modal = $('#edit-news-modal');
     $modal
     .on('hidden.bs.modal', function(){
         $modal.remove();
     })
     .modal();
 
-    $('#add-news-form').on('ajax-success', function(){
+    $('#edit-news-form').on('ajax-success', function(){
         $modal
         .removeAttr('id').modal('hide')
         .find('[id]').removeAttr('id');
