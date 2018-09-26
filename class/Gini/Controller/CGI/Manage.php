@@ -74,4 +74,19 @@ class Manage extends Layout\Index
             'active' => 'about'
         ]);
     }
+
+    public function actionBanner()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $form = $this->form();
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/banner", [
+            'form' => $form,
+            'active' => 'banner'
+        ]);
+    }
 }

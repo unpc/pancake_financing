@@ -1,0 +1,42 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('管理中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <div class="admin-container">
+                <h1 class="title"><span></span><?= T('首页轮播') ?></h1>
+                <div class="hr"></div>
+                <div class="file-loading">
+                    <input id="input-attachment" name="input[]" type="file" multiple />
+                </div>
+                <div class="hr_2"></div>
+                <script>
+                require(['main'], function($) {
+                    require(['fileinput', 'theme/fa/theme', 'locales/zh', 'css!../css/fileinput'], function() {
+                        $("#input-attachment").fileinput({
+                            dropZoneEnabled: true,
+                            showClose: false,
+                            language: "zh",
+                            theme: "fa",
+                            uploadUrl: "<?= URL("ajax/banner/uploadAttachment") ?>",
+                            deleteUrl: "<?= URL("ajax/banner/deleteAttachment") ?>",
+                            overwriteInitial: false,
+                            initialPreview: <?= \Gini\Model\Help::jsQuote(\Gini\Model\Help::attachments()) ?>,
+                            initialPreviewConfig: JSON.parse('<?= json_encode(\Gini\Model\Help::attachmentsConfig()) ?>'),
+                            allowedFileExtensions: ['jpg', 'bmp', 'png']
+                        })
+                    })
+                })
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>

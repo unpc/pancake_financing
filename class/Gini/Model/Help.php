@@ -75,21 +75,38 @@ class Help
         return join(', ', $new);
     }
 
-    public static function cutHtml($html='')
+    public static function bannerPath($path='')
     {
-        $b = [
-            "/<script.*>(.*)<\/script>/siU",
-            '/on(click|dblclick|mousedown|mouseup|mouseover|mousemove|mouseout|keypress|keydown|keyup)="[^"]*"/i',
-            '/on(abort|beforeunload|error|load|move|resize|scroll|stop|unload)="[^"]*"/i', 
-            '/on(blur|change|focus|reset|submit)="[^"]*"/i', 
-            '/on(bounce|finish|start)="[^"]*"/i',
-            '/on(beforecopy|beforecut|beforeeditfocus|beforepaste|beforeupdate|contextmenu|cut)="[^"]*"/i',
-            '/on(drag|dragdrop|dragend|dragenter|dragleave|dragover|dragstart|drop|losecapture|paste|select|selectstart)="[^"]*"/i',
-            '/on(afterupdate|cellchange|dataavailable|datasetchanged|datasetcomplete|errorupdate|rowenter|rowexit|rowsdelete|rowsinserted)="[^"]*"/i',
-            '/on(afterprint|beforeprint|filterchange|help|propertychange|readystatechange)="[^"]*"/i',
-            '/javascript\:.*(\;|")/'
-        ];
-        $c = ['','','','','','','','','','','',''];
-        return preg_replace($b, $c, $html);
+        $basePath = APP_PATH.'/'.DATA_DIR.'/banner/';
+        \Gini\File::ensureDir($basePath);
+        return $basePath . $path;
+    }
+
+    public static function attachments()
+    {
+        $attachments = [];
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(self::bannerPath()), \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+            if (!preg_match("/^\./", $file->getFileName())) {
+                $attachments[] = '<img src="'.URL("/data/banner/".$file->getFileName()).'" class="file-preview-image" width="100%"/>';
+            }
+        }
+        return $attachments;
+    }
+
+    public static function attachmentsConfig()
+    {
+        $config = [];
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(self::bannerPath()), \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+            if (!preg_match("/^\./", $file->getFileName())) {
+                $config[] = [
+                    'type' => $file->getExtension(),
+                    'size' => $file->getSize(),
+                    'caption' => $file->getFileName(),
+                    'url' => URL("ajax/banner/DeleteAttachment"),
+                    'key' => $file->getFileName()
+                ];
+            }
+        }
+        return $config;
     }
 }
