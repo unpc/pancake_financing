@@ -120,4 +120,28 @@ class User extends \Gini\Controller\CGI
 
         return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
     }
+
+    public function actionGetUsers()
+    {
+        $me = _G('ME');
+        $form = $this->form();
+        $objects = [];
+
+        try {
+            $users = those('user')
+                    ->whose('name')->contains(H($form['query']))
+                    ->orWhose('username')->contains(H($form['query']));
+            foreach ($users as $key => $user) {
+                $objects[$key] = [
+                    'name' => $user->name,
+                    'id' => $user->id,
+                    'username' => $user->username
+                ];
+            }
+        } catch (\Gini\RPC\Exception $e) {
+            $objects = [];
+        }
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\JSON', $objects);
+    }
 }

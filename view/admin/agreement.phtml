@@ -10,9 +10,48 @@
             <?= V('admin/sidebar', ['active' => $active]) ?>
         </div>
         <div class="col-md-10">
+            <?= V('confirm') ?>
             <div class="admin-container">
-                <h1 class="title"><span></span><?= T('合同管理') ?></h1>
-                <div class="hr"></div>
+                <h1 class="title">
+                    <span></span>合同管理
+                    <p class="title-button">
+                        <a href="gini-ajax:ajax/agreement/add"><i class="fa fa-fw fa-plus"></i></a>
+                    </p>
+                </h1>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="bg bg-primary">
+                            <td class="hidden-xs"><?= T('合同编号') ?></td>
+                            <td><?= T('姓名') ?></td>
+                            <td class="hidden-xs"><?= T('产品名称') ?></td>
+                            <td><?= T('出资金额') ?></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <?php if (!count($agreements)): ?>
+                            <tr>
+                                <td colspan="5"><p class="text-center red"><?= T('未查询到合同!') ?></p></td>
+                            </tr>
+                        <?php
+                            else: foreach($agreements as $agreement): 
+                        ?>
+                            <tr>
+                                <td class="hidden-xs"><?= T('合同编号') ?></td>
+                                <td><?= $agreement->user->name ?></td>
+                                <td class="hidden-xs"><?= $agreement->product->title ?></td>
+                                <td><span class="red"><?= strtr('￥%amount.00', ['%amount' => $agreement->amount]) ?></span></td>
+                                <td>
+                                    <a href="gini-ajax:ajax/agreement/edit/<?= (int)$agreement->id ?>"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a 
+                                        data-confirm="<?= H(T('您确认删除合同:agreement吗?', [':agreement'=>$agreement->id])) ?>"
+                                        data-confirm-description="<?= H(T('点击确认后会删除该合同信息, 请谨慎处理!')) ?>"
+                                        href="gini-ajax:ajax/agreement/delete/<?= (int)$agreement->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; endif;?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -102,4 +102,26 @@ class Product extends \Gini\Controller\CGI
 
         return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
     }
+
+    public function actionGetProducts()
+    {
+        $me = _G('ME');
+        $form = $this->form();
+        $objects = [];
+
+        try {
+            $products = those('product')
+                    ->whose('title')->contains(H($form['query']));
+            foreach ($products as $key => $product) {
+                $objects[$key] = [
+                    'name' => $product->title,
+                    'id' => $product->id
+                ];
+            }
+        } catch (\Gini\RPC\Exception $e) {
+            $objects = [];
+        }
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\JSON', $objects);
+    }
 }

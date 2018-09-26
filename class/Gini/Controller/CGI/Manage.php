@@ -97,11 +97,13 @@ class Manage extends Layout\Index
             $this->redirect('/login');
         }
         $form = $this->form();
+        $agreements = those('agreement');
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
         $this->view->body = V("admin/agreement", [
             'form' => $form,
-            'active' => 'agreement'
+            'active' => 'agreement',
+            'agreements' => $agreements
         ]);
     }
 }

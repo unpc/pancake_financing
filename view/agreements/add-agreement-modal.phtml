@@ -1,0 +1,152 @@
+<div id="add-agreement-modal" class="modal fade in">
+<div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?= H(T('添加合同')) ?></h4>
+        </div>
+    </div>
+    <div class="modal-body" style="padding-top:20px;">
+        <form id="add-agreement-form" method="POST" action="gini-ajax:ajax/agreement/add">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['user_name']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['user_name'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['user_name']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="title"><?= H('购买者') ?></label>
+                    <input id="user_name" name="user_name" type="text" class="form-control autocomplete" autocomplete="off" value="<?= H($form['user_name']) ?>" />
+                    <input id="user_id" name="user_id" hidden value="<?= $form['user_id'] ?>" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['idcard']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['idcard'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['idcard']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="idcard"><?= H('身份证号') ?></label>
+                    <input id="idcard" name="idcard" type="text" class="form-control" value="<?= H($form['idcard']) ?>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['product']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['product'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['product']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="product"><?= H('所购产品') ?></label>
+                    <input id="product" name="product" type="text" class="form-control autocomplete" autocomplete="off" value="<?= H($form['product']) ?>" />
+                    <input id="product_id" name="product_id" hidden value="<?= $form['product_id'] ?>" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group <?= isset($form['_errors']['amount']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['amount'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['amount']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="amount"><?= H('购买金额') ?></label>
+                    <div class="input-group">
+                        <div class="input-group-addon">￥</div>
+                        <input type="text" class="form-control" id="amount" placeholder="总额" name="amount" autocomplete="off" value="<?= H($form['amount']) ?>">
+                        <div class="input-group-addon">.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button class="btn btn-save btn-raised" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times fa-fw "></i><?= H(T('关闭')) ?></button>
+            <button class="btn btn-ok btn-raised" form="add-agreement-form" type="submit"><i class="fa fa-plus fa-fw"></i> <?= H(T('添加')) ?></button>
+        <div class="row">
+    </div>
+</div></div>
+</div>
+<script data-ajax="true">
+require(['main', 'bootstrap.autocomplete'], function($){
+
+    var $modal = $('#add-agreement-modal');
+    $modal
+    .on('hidden.bs.modal', function(){
+        $modal.remove();
+    })
+    .modal();
+
+    $('#add-agreement-form').on('ajax-success', function(){
+        $modal
+        .removeAttr('id').modal('hide')
+        .find('[id]').removeAttr('id');
+    });
+
+    $('input#user_name').autocomplete({
+        source: function(query, process){
+            $.ajax({
+                url: 'ajax/user/getUsers',
+                method: 'POST',
+                data: {
+                    query: query
+                },
+                success: function(respData) {
+                    return process(respData)
+                }
+            })
+        },
+        formatItem: function(item){
+            return item["name"] + '(' + item["username"] + ')'
+        },
+        setValue: function(item){
+            return { 'data-value': item["name"], 'real-value': item["id"] }
+        },
+        select: function () {
+            var val = this.$menu.find('.active').attr('data-value'),
+                realVal = this.$menu.find('.active').attr('real-value')
+                contact = this.$menu.find('.active').attr('contact')
+            this.$element
+            .val(this.updater(val))
+            .attr("real-value", realVal)
+            .change()
+            $('input#user_id').val(realVal)
+            return this.hide()
+        }
+    });
+    $('input#product').autocomplete({
+        source: function(query, process){
+            $.ajax({
+                url: 'ajax/product/getProducts',
+                method: 'POST',
+                data: {
+                    query: query
+                },
+                success: function(respData) {
+                    return process(respData)
+                }
+            })
+        },
+        formatItem: function(item){
+            return item["name"]
+        },
+        setValue: function(item){
+            return { 'data-value': item["name"], 'real-value': item["id"] }
+        },
+        select: function () {
+            var val = this.$menu.find('.active').attr('data-value'),
+                realVal = this.$menu.find('.active').attr('real-value')
+            this.$element
+            .val(this.updater(val))
+            .attr("real-value", realVal)
+            .change()
+            $('input#product_id').val(realVal)
+            return this.hide()
+        }
+    });
+});
