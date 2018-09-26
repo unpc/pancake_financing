@@ -14,6 +14,8 @@ class Product extends \Gini\Controller\CGI
             try {
                 $validator
                     ->validate('title', $form['title'], T('产品名称不能为空!'))
+                    ->validate('amount', $form['amount'], T('购买总额不能为空!'))
+                    ->validate('amount', is_numeric($form['amount']), T('购买总额必须为数字!'))
                     ->done();
 
                 $product = a('product');
@@ -28,6 +30,7 @@ class Product extends \Gini\Controller\CGI
                 $product->admin_rate = H($form['admin_rate']);
                 $product->distribution = H($form['distribution']);
                 $product->redemption_rate = H($form['redemption_rate']);
+                $product->amount = (int)$form['amount'];
                 $product->save();
 
 
@@ -56,6 +59,8 @@ class Product extends \Gini\Controller\CGI
             try {
                 $validator
                     ->validate('title', $form['title'], T('产品名称不能为空!'))
+                    ->validate('amount', $form['amount'], T('购买总额不能为空!'))
+                    ->validate('amount', is_numeric($form['amount']), T('购买总额必须为数字!'))
                     ->done();
 
                 $product->title = H($form['title']);
@@ -69,6 +74,7 @@ class Product extends \Gini\Controller\CGI
                 $product->admin_rate = H($form['admin_rate']);
                 $product->distribution = H($form['distribution']);
                 $product->redemption_rate = H($form['redemption_rate']);
+                $product->amount = (int)$form['amount'];
                 $product->save();
 
 

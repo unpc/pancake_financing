@@ -97,10 +97,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group label-floating is-empty">
                     <label for="redemption_rate" class="control-label"><?= H(T('赎回费率')) ?></label>
                     <input type="text" class="form-control" id="redemption_rate" name="redemption_rate" autocomplete="off" value="<?= H($form['_errors'] ? $form['redemption_rate'] : $product->redemption_rate) ?>" >
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty <?= isset($form['_errors']['amount']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['amount'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['amount']) ?>
+                        </span>
+                    <?php } ?>
+                    <label for="amount" class="control-label"><?= H(T('购买总额')) ?></label>
+                    <div class="input-group">
+                        <div class="input-group-addon">￥</div>
+                        <input type="text" class="form-control" id="amount" placeholder="总额" name="amount" autocomplete="off" value="<?= H($form['_errors'] ? $form['amount'] : $product->amount) ?>">
+                        <div class="input-group-addon">.00</div>
+                    </div>
                 </div>
             </div>
         </div>

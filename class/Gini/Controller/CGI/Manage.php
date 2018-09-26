@@ -89,4 +89,19 @@ class Manage extends Layout\Index
             'active' => 'banner'
         ]);
     }
+
+    public function actionAgreement()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $form = $this->form();
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/agreement", [
+            'form' => $form,
+            'active' => 'agreement'
+        ]);
+    }
 }

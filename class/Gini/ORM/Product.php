@@ -18,10 +18,13 @@ class Product extends Object
     public $status = 'int,default:0';
     public $ctime = 'datetime';
 
+    public $amount = 'int';
+
     protected static $db_index = [
         'title',
         'status',
         'ctime',
+        'amount'
     ];
 
     const TYPE_GDSY = 1;
