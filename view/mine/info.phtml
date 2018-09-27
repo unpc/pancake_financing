@@ -19,17 +19,17 @@
                     <table class="table m">
                         <tbody>
                             <tr>
-                                <td class="col-md-2 col-xs-4"><?= T('姓名') ?></td>
+                                <td class="col-md-2 col-xs-4"><?= T('手机号') ?></td>
                                 <td class="col-md-4 col-xs-8">
-                                    <input class="form-control" type="text" name="name" value="<?= H($me->name) ?>" />
+                                    <input class="form-control" type="text" name="phone" disabled value="<?= H($me->username) ?>" />
                                 </td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td class="col-md-2 col-xs-4"><?= T('手机号') ?></td>
+                                <td class="col-md-2 col-xs-4"><?= T('姓名') ?></td>
                                 <td class="col-md-4 col-xs-8">
-                                    <input class="form-control" type="text" name="phone" disabled value="<?= H($me->username) ?>" />
+                                    <input class="form-control" type="text" name="name" value="<?= H($me->name) ?>" />
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -51,7 +51,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><button class="btn btn-primary" type="submit" form="info-form"><?= T('修改信息') ?></button></td>
+                                <td colspan="4"><button class="btn btn-primary" type="submit" name="submit-info" value="submit-info" form="info-form"><?= T('修改信息') ?></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -61,19 +61,46 @@
                     <table class="table m">
                         <tbody>
                             <tr>
-                                <td class="col-md-2 col-xs-4"><?= T('密码') ?></td>
-                                <td class="col-md-4 col-xs-8"><input class="form-control" type="password" name="password" value="" /></td>
+                                <td class="col-md-2 col-xs-4"><?= T('原密码') ?></td>
+                                <td class="col-md-4 col-xs-8">
+                                    <div class="form-group <?= isset($form['_errors']['pwd']) ? 'has-error' : ''?>">
+                                        <?php if(isset($form['_errors']['pwd'])): ?>
+                                        <label class="control-label" for="pwd"><?= $form['_errors']['pwd'] ?></label>
+                                        <?php endif; ?>
+                                        <input id="pwd" type="password" name="pwd" class="form-control" />
+                                    </div>
+                                </td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td class="col-md-2 col-xs-4"><?= T('验证码') ?></td>
-                                <td class="col-md-4 col-xs-8"><input class="form-control" type="text" name="code" value="" /></td>
-                                <td><a class="btn btn-primary"><?= T('发送验证码') ?></a></td>
+                                <td class="col-md-2 col-xs-4"><?= T('新密码') ?></td>
+                                <td class="col-md-4 col-xs-8">
+                                    <div class="form-group <?= isset($form['_errors']['code']) ? 'has-error' : ''?>">
+                                        <?php if(isset($form['_errors']['code'])): ?>
+                                        <label class="control-label" for="code"><?= $form['_errors']['code'] ?></label>
+                                        <?php endif; ?>
+                                        <input id="code" type="password" name="code" class="form-control" value="<?= $form['code']?>" />
+                                    </div>
+                                </td>
+                                <td></td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="4"><button class="btn btn-primary" type="submit" form="password-form"><?= T('修改密码') ?></button></td>
+                                <td class="col-md-2 col-xs-4"><?= T('重复新密码') ?></td>
+                                <td class="col-md-4 col-xs-8">
+                                    <div class="form-group <?= isset($form['_errors']['re_code']) ? 'has-error' : ''?>">
+                                        <?php if(isset($form['_errors']['re_code'])): ?>
+                                        <label class="control-label" for="re_code"><?= $form['_errors']['re_code'] ?></label>
+                                        <?php endif; ?>
+                                        <input id="re_code" type="password" name="re_code" class="form-control" value="<?= $form['re_code']?>" />
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><button class="btn btn-primary" type="submit" name="submit-password" value="submit-password" form="password-form"><?= T('修改密码') ?></button></td>
                             </tr>
                         </tbody>
                     </table>

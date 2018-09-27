@@ -27,4 +27,9 @@ class Login extends \Gini\Controller\CGI
         
         return \Gini\IoC::construct('\Gini\CGI\Response\JSON', ['success' => true]);
     }
+
+    public function actionShowServiceProtocol()
+    {
+        return \Gini\IoC::construct('\Gini\CGI\Response\HTML', V('login/service-protocol', []));
+    }
 }

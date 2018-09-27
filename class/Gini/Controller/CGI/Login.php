@@ -62,6 +62,8 @@ class Login extends Layout\Login
             try {
                 $code = a('code')->whose('phone')->is($form['authToken'])
                     ->whose('expire')->isGreaterThan(date('Y-m-d H:i:s'));
+                $expire_codes = those('code')->whose('expire')->isLessThan(date('Y-m-d H:i:s'));
+                foreach ($expire_codes as $c) { $c->delete(); }
                 $validator
                     ->validate('authToken', $form['authToken'], T('手机号码不能为空!'))
                     ->validate('authToken', preg_match('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/', $form['authToken']), T('请输入有效的手机号!'))

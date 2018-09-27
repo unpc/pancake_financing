@@ -700,9 +700,18 @@ html,body {
 					background-color: @red;
 				}
 			}
+			.bg-primary {
+				background: @red;
+				&:hover {
+					background: @red;
+				}
+			}
 			table.m > tbody > tr > td {
 				border-top: none;
 				vertical-align: middle;
+				.form-group {
+					margin-bottom: 0px;
+				}
 			}
 			a.btn {
 				margin: 0px;
@@ -725,12 +734,6 @@ html,body {
 			.title {
 				.title-button {
 					float: right;
-				}
-			}
-			.bg-primary {
-				background: @red;
-				&:hover {
-					background: @red;
 				}
 			}
 		}
