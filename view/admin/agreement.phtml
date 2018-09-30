@@ -37,9 +37,9 @@
                             else: foreach($agreements as $agreement): 
                         ?>
                             <tr>
-                                <td class="hidden-xs"><?= T('合同编号') ?></td>
+                                <td class="hidden-xs"><?= H($agreement->product->number) ?></td>
                                 <td><?= $agreement->user->name ?></td>
-                                <td class="hidden-xs"><?= $agreement->product->title ?></td>
+                                <td class="hidden-xs"><?= H($agreement->product->title) ?></td>
                                 <td><span class="red"><?= strtr('￥%amount.00', ['%amount' => $agreement->amount]) ?></span></td>
                                 <td>
                                     <a href="gini-ajax:ajax/agreement/edit/<?= (int)$agreement->id ?>"><i class="fa fa-fw fa-edit"></i></a>

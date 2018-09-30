@@ -35,6 +35,10 @@
                             else: foreach($agreements as $agreement): 
                         ?>
                             <tr>
+                                <td class="hidden-xs"><?= H($agreement->product->number) ?></td>
+                                <td class="hidden-xs"><?= H($agreement->product->title) ?></td>
+                                <td><span class="red"><?= strtr('￥%amount.00', ['%amount' => $agreement->amount]) ?></span></td>
+                                <td><?= date('Y-m-d', strtotime($agreement->ctime) + $agreement->product->dead_day * 86400) ?></td>
                             </tr>
                         <?php endforeach; endif;?>
                     </tbody>

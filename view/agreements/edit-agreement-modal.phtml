@@ -133,7 +133,7 @@ require(['main', 'bootstrap.autocomplete'], function($){
             })
         },
         formatItem: function(item){
-            return item["name"]
+            return item["name"] + '(' + item["number"] + ')'
         },
         setValue: function(item){
             return { 'data-value': item["name"], 'real-value': item["id"] }

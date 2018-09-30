@@ -123,10 +123,12 @@ class Product extends \Gini\Controller\CGI
 
         try {
             $products = those('product')
-                    ->whose('title')->contains(H($form['query']));
+                    ->whose('title')->contains(H($form['query']))
+                    ->orWhose('number')->contains(H($form['query']));
             foreach ($products as $key => $product) {
                 $objects[$key] = [
                     'name' => $product->title,
+                    'number' => $product->number,
                     'id' => $product->id
                 ];
             }
