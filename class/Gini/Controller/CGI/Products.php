@@ -17,7 +17,9 @@ class Products extends Layout\Index
             //获取post参数 并校验
             $form = $this->form('post');
             if ($form['title']) {
-                $products = $products->whose('title')->contains(H($form['title']));
+                $products = $products
+                        ->whose('title')->contains(H($form['title']))
+                        ->orWhose('number')->contains(H($form['title']));
             }
         }
 

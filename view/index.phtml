@@ -45,54 +45,26 @@
 </div>
 <div class="product-list">
     <div class="row">
+        <?php 
+            $index_products = those('product')->orderBy('ctime', 'D')->limit(3); 
+            foreach ($index_products as $key => $product):
+        ?>
         <div class="col-md-4">
             <div class="product-desc">
-                <h3>平安信托佳园181集合资金信托计划-24个月</h3>
-                <em>固定收益</em>
+                <h3><?= H($product->title) ?></h3>
                 <div class="rate">8.80<small>%</small></div>
                 <p class="remark">业绩比较基准</p>
                 <div class="list clearfix">
-                    <div class="wrap"><span><strong>24个月</strong>期限</span></div>
+                    <div class="wrap"><span><strong><?= (int)$product->dead_day ?>天</strong>期限</span></div>
                     <div class="line"></div>
-                    <div class="wrap"><span><strong>600万</strong>起购(元)</span></div>
+                    <div class="wrap"><span><?= H($product->purchase) ?></span></div>
                 </div>
                 <p class="btn-wrap">
-                    <a class="btn btn-primary btn-block"><?= T('查看详情') ?></a>
+                    <a class="btn btn-primary btn-block" href="<?= URL("/product/{$product->id}") ?>"><?= T('查看详情') ?></a>
                 </p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="product-desc">
-                <h3>平安信托佳园181集合资金信托计划-24个月</h3>
-                <em>固定收益</em>
-                <div class="rate">8.80<small>%</small></div>
-                <p class="remark">业绩比较基准</p>
-                <div class="list clearfix">
-                    <div class="wrap"><span><strong>24个月</strong>期限</span></div>
-                    <div class="line"></div>
-                    <div class="wrap"><span><strong>600万</strong>起购(元)</span></div>
-                </div>
-                <p class="btn-wrap">
-                    <a class="btn btn-primary btn-block"><?= T('查看详情') ?></a>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="product-desc">
-                <h3>平安信托佳园181集合资金信托计划-24个月</h3>
-                <em>固定收益</em>
-                <div class="rate">8.80<small>%</small></div>
-                <p class="remark">业绩比较基准</p>
-                <div class="list clearfix">
-                    <div class="wrap"><span><strong>24个月</strong>期限</span></div>
-                    <div class="line"></div>
-                    <div class="wrap"><span><strong>600万</strong>起购(元)</span></div>
-                </div>
-                <p class="btn-wrap">
-                    <a class="btn btn-primary btn-block"><?= T('查看详情') ?></a>
-                </p>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>
 <div class="products">
@@ -112,35 +84,32 @@
             </tr>
         </thead>
         <tbody>
-            <?php for($num=0; $num <= 8; $num++): ?>
+            <?php 
+                $products = those('product')->orderBy('ctime', 'D')->limit(10); 
+                foreach ($products as $key => $product):
+            ?>
             <tr>
-                <td class="col-md-4">
-                    <a><p class="pro-name">煎饼理财·开元6号集合资金信托计划-685天</p></a>
+                <td class="col-md-4 col-xs-6">
+                    <a href="<?= URL("/product/{$product->id}") ?>"><p class="pro-name"><?= H($product->title) ?></p></a>
+                    <span class="tag-in-table-title">销售中</span>
                 </td>
-                <td>
+                <td class="col-xs-2 hidden-xs">
                     <p class="pro-type">固定收益</p>
                 </td>
-                <td>
-                    <p class="pro-data red">
-                        <strong>8.60<small>%</small></strong>
-                    </p>
-                    <p class="pro-remark">业绩比较基准</p>
-                </td>
-                <td>
-                    <p class="pro-data">685天 </p>
+                <td class="col-xs-2 hidden-xs">
+                    <p class="pro-data"><?= (int)$product->dead_day ?>天</p>
                     <p class="pro-remark">期限</p>
                 </td>
-                <td>
-                    <p class="pro-data">300万</p>
-                    <p class="pro-remark">起购(元)</p>
+                <td class="hidden-xs">
+                    <p class="pro-remark"><?= H($product->purchase) ?></p>
                 </td>
-                <td>
+                <td class="col-xs-2">
                     <p class="pro-btn text-right">
-                        <a class="btn"><?= T('查看详情') ?></a>
+                        <a class="btn" href="<?= URL("/product/{$product->id}") ?>"><?= T('查看详情') ?></a>
                     </div>
                 </td>
             </tr>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
@@ -149,24 +118,17 @@
         <div class="col-md-6">
             <div class="wrap news-list"> 
                 <div class="panel-title">
-                    <h2>新闻公告</h2><a>查看更多&#160;<i class="fa fa-angle-double-right"></i></a>
+                    <h2>新闻公告</h2><a href="<?= URL("/news")?>">查看更多&#160;<i class="fa fa-angle-double-right"></i></a>
                 </div>
-                <ul class="content">	
+                <ul class="content">
+                    <?php 
+                        $news = those('news')->orderBy('publish', 'D')->limit(5);
+                        foreach ($news as $new):
+                    ?>
                     <li>
-                        <a>平安信托有限责任公司简介<span>2018-05-08</span></a>
+                        <a href="<?= URL("/news/profile/{$new->id}") ?>"><?= H($new->title) ?><span><?= $new->publish ?></span></a>
                     </li>
-                    <li>
-                        <a>平安信托有限责任公司简介<span>2018-05-08</span></a>
-                    </li>
-                    <li>
-                        <a>平安信托有限责任公司简介<span>2018-05-08</span></a>
-                    </li>
-                    <li>
-                        <a>平安信托有限责任公司简介<span>2018-05-08</span></a>
-                    </li>
-                    <li>
-                        <a>平安信托有限责任公司简介<span>2018-05-08</span></a>
-                    </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
@@ -177,19 +139,19 @@
                 </div>
                 <ul class="content">	
                     <li>
-                        <a>平安财富鲲鹏八期集合资金信托计划延期通知<span>2018-09-08</span></a>
+                        <a>煎饼财富鲲鹏八期集合资金信托计划延期通知<span>2018-09-08</span></a>
                     </li>
                     <li>
-                        <a>平安财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
+                        <a>煎饼财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
                     </li>
                     <li>
-                        <a>平安财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
+                        <a>煎饼财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
                     </li>
                     <li>
-                        <a>平安财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
+                        <a>煎饼财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
                     </li>
                     <li>
-                        <a>平安财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
+                        <a>煎饼财富鲲鹏八期集合资金信托计划延期通知<span>2018-05-08</span></a>
                     </li>
                 </ul>
             </div>

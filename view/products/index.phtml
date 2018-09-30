@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-8 ">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="title" placeholder="请输入产品名称" value="<?= $form['title'] ?>" />
+                    <input type="text" class="form-control" name="title" placeholder="请输入产品名称或者编号" value="<?= $form['title'] ?>" />
                     <div class="input-group-addon">
                         <button class="none" type="submit" form='products-search'><i class="fa fa-search fa-fw"></i> 搜索</button>
                     </div>
@@ -36,36 +36,29 @@
 <div class="products">
     <table class="table table-hover">
         <tbody>
-            <?php for($num=0; $num <= 8; $num++): ?>
+            <?php foreach($products as $product): ?>
             <tr>
                 <td class="col-md-4 col-xs-6">
-                    <a><p class="pro-name">煎饼理财·开元6号集合资金信托计划-685天</p></a>
-                    <span class="tag-in-table-title">预售</span>
+                    <a href="<?= URL("/product/{$product->id}") ?>"><p class="pro-name"><?= H($product->title) ?></p></a>
+                    <span class="tag-in-table-title">销售中</span>
                 </td>
-                <td class="hidden-xs">
+                <td class="col-xs-2 hidden-xs">
                     <p class="pro-type">固定收益</p>
                 </td>
-                <td class="col-xs-3">
-                    <p class="pro-data red">
-                        <strong>8.60<small>%</small></strong>
-                    </p>
-                    <p class="pro-remark">业绩比较基准</p>
-                </td>
-                <td class="hidden-xs">
-                    <p class="pro-data">685天 </p>
+                <td class="col-xs-2 hidden-xs">
+                    <p class="pro-data"><?= (int)$product->dead_day ?>天</p>
                     <p class="pro-remark">期限</p>
                 </td>
                 <td class="hidden-xs">
-                    <p class="pro-data">300万</p>
-                    <p class="pro-remark">起购(元)</p>
+                    <p class="pro-remark"><?= H($product->purchase) ?></p>
                 </td>
-                <td class="col-xs-3">
+                <td class="col-xs-2">
                     <p class="pro-btn text-right">
-                        <a class="btn" href="<?= URL("/product/{$num}") ?>"><?= T('查看详情') ?></a>
+                        <a class="btn" href="<?= URL("/product/{$product->id}") ?>"><?= T('查看详情') ?></a>
                     </div>
                 </td>
             </tr>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>

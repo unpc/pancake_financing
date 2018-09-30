@@ -11,11 +11,11 @@
                 <div class="profile-content">
                     <div class="pub-tag">
                         <strong>预售期</strong>
-                        <small>2018-09-20 12:00:00</small>
+                        <small><?= $product->open_day ?></small>
                         <div class="tag-shadow"></div>
                     </div>
-                    <h2 class="name">平安信托大名城2号集合资金信托计划-526天</h2>
-                    <h3 class="type">固定收益</h3>
+                    <h2 class="name"><?= H($product->title) ?></h2>
+                    <h3 class="type"><?= H($product->Issuer) ?></h3>
                     <div class="row column-desc">
                         <div class="col-md-4 col-xs-12 column">
                             <h4>业绩比较基准</h4>
@@ -23,11 +23,11 @@
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h4>期限</h4>
-                            <p class="xm">526天</p>
+                            <p class="xm"><?= (int)$product->dead_day ?>天</p>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h4>起购（元）</h4>
-                            <p class="xm">100万</p>
+                            <p class="xm"><?= H($product->purchase) ?></p>
                         </div>
                     </div>
                     <div class="progress">
@@ -36,15 +36,15 @@
                     <div class="row column-time">
                         <div class="col-md-4 col-xs-12 column">
                             <h5>购买时间</h5>
-                            <h6>2018-09-30</h6>
+                            <h6><?= $product->open_day ?></h6>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h5>预计起息日</h5>
-                            <h6>2018-10-07</h6>
+                            <h6><?= date('Y-m-d H:i:s', strtotime($product->open_day) + 2 * 86400) ?></h6>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h5>预计到期日</h5>
-                            <h6>2018-12-30</h6>
+                            <h6><?= date('Y-m-d H:i:s', strtotime($product->open_day) + $product->dead_day * 86400) ?></h6>
                         </div>
                     </div>
                     <div class="buttons row">
@@ -58,47 +58,32 @@
     <div class="hr_2"></div>
     <div class="profile-box">
         <div class="desc-box">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">产品详情</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">产品公告</a></li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">
-                    <div class="product-desc">
-                        <h3 class="title">基础信息</h3>
-                        <div class="row">
-                            <div class="col-md-2 col-xs-4 bg">产品全称</div>
-                            <div class="col-md-4 col-xs-8 body">平安信托安泰6号集合资金信托计划-703天</div>
-                            <div class="col-md-2 col-xs-4 bg">产品成立日</div>
-                            <div class="col-md-4 col-xs-8 body">2018-08-29</div>
-                            <div class="col-md-2 col-xs-4 bg">产品期限</div>
-                            <div class="col-md-4 col-xs-8 body">703天</div>
-                            <div class="col-md-2 col-xs-4 bg">预期年化收益率</div>
-                            <div class="col-md-4 col-xs-8 body">8.75%</div>
-                        </div>
-                        <h3 class="title">购买规则</h3>
-                        <div class="row">
-                            <div class="col-md-2 col-xs-4 bg">购买金额</div>
-                            <div class="col-md-4 col-xs-8 body">300万元起购 ,10万元递增</div>
-                            <div class="col-md-2 col-xs-4 bg">保管费率</div>
-                            <div class="col-md-4 col-xs-8 body">0.01%</div>
-                            <div class="col-md-2 col-xs-4 bg">固定管理费</div>
-                            <div class="col-md-4 col-xs-8 body">1.00%</div>
-                            <div class="col-md-2 col-xs-4 bg">购买对象</div>
-                            <div class="col-md-4 col-xs-8 body">所有人</div>
-                        </div>
-                        <h3 class="title">分配规则</h3>
-                        <div class="row">
-                            <div class="col-md-2 col-xs-4 bg">分配方式</div>
-                            <div class="col-md-4 col-xs-8 body">自然季度</div>
-                            <div class="col-md-2 col-xs-4 bg">赎回费率</div>
-                            <div class="col-md-4 col-xs-8 body">以合同约定为准</div>
-                        </div>
-                    </div>
+            <div class="product-desc">
+                <h3 class="title">基础信息</h3>
+                <div class="row">
+                    <div class="col-md-2 col-xs-4 bg">产品全称</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->title) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">产品成立日</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->create_day) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">产品期限</div>
+                    <div class="col-md-4 col-xs-8 body"><?= (int)$product->dead_day ?>天</div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="profile">222</div>
+                <h3 class="title">购买规则</h3>
+                <div class="row">
+                    <div class="col-md-2 col-xs-4 bg">购买金额</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">固定管理费</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->admin_rate) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">购买对象</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase_object) ?></div>
+                </div>
+                <h3 class="title">分配规则</h3>
+                <div class="row">
+                    <div class="col-md-2 col-xs-4 bg">分配方式</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->distribution) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">赎回费率</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->redemption_rate) ?></div>
+                </div>
             </div>
         </div>
     </div>
