@@ -62,11 +62,11 @@ class Login extends Layout\Login
             try {
                 $code = a('code')->whose('phone')->is($form['authToken'])
                     ->whose('expire')->isGreaterThan(date('Y-m-d H:i:s'));
-                $expire_codes = those('code')->whose('expire')->isLessThan(date('Y-m-d H:i:s'));
-                foreach ($expire_codes as $c) { $c->delete(); }
+                $exist_user = a('user')->whose('username')->is(H($form['authToken']));
                 $validator
                     ->validate('authToken', $form['authToken'], T('手机号码不能为空!'))
                     ->validate('authToken', preg_match('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/', $form['authToken']), T('请输入有效的手机号!'))
+                    ->validate('authToken', $exist_user->id, T('您输入的手机号已经注册!'))
                     ->validate('authPassword', $form['authPassword'], T('登录密码不能为空!'))
                     ->validate('authPassword', preg_match('/(?=^.{8,24}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?!.*\s)[0-9a-zA-Z!@#.,$%*()_+^&]*$/', $form['authPassword']), T('请输入8~24位含大写字母、数字密码!'))
                     ->validate('authCode', $form['authCode'], T('验证码不能为空!'))

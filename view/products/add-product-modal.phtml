@@ -9,6 +9,19 @@
     <div class="modal-body" style="padding-top:20px;">
         <form id="add-product-form" method="POST" action="gini-ajax:ajax/product/add">
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group <?= isset($form['_errors']['number']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['number'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['number']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="number"><?= H('产品编号') ?></label>
+                    <input id="number" name="number" type="text" class="form-control" value="<?= H($form['number']) ?>"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group <?= isset($form['_errors']['title']) ? ' has-error':'' ?>">
                     <?php if (isset($form['_errors']['title'])) { ?>

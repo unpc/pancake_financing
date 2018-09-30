@@ -12,13 +12,18 @@ class Product extends \Gini\Controller\CGI
             $validator = new \Gini\CGI\Validator;
 
             try {
+                $exist_product = a('product', ['number' => H($form['number'])]);
+
                 $validator
                     ->validate('title', $form['title'], T('产品名称不能为空!'))
+                    ->validate('number', H($form['number']), T('产品编号不能为空!'))
+                    ->validate('number', !$exist_product->id, T('产品编号不能重复!'))
                     ->validate('amount', $form['amount'], T('购买总额不能为空!'))
                     ->validate('amount', is_numeric($form['amount']), T('购买总额必须为数字!'))
                     ->done();
 
                 $product = a('product');
+                $product->number = H($form['number']);
                 $product->title = H($form['title']);
                 $product->Issuer = H($form['Issuer']);
                 $product->create_day = H($form['create_day']);
@@ -57,12 +62,19 @@ class Product extends \Gini\Controller\CGI
             $validator = new \Gini\CGI\Validator;
 
             try {
+                $exist_product = a('product')
+                        ->whose('number')->is(H($form['number']))
+                        ->andWhose('id')->isNot($product->id);
+
                 $validator
                     ->validate('title', $form['title'], T('产品名称不能为空!'))
+                    ->validate('number', H($form['number']), T('产品编号不能为空!'))
+                    ->validate('number', !$exist_product->id, T('产品编号不能重复!'))
                     ->validate('amount', $form['amount'], T('购买总额不能为空!'))
                     ->validate('amount', is_numeric($form['amount']), T('购买总额必须为数字!'))
                     ->done();
 
+                $product->number = H($form['number']);
                 $product->title = H($form['title']);
                 $product->Issuer = H($form['Issuer']);
                 $product->create_day = H($form['create_day']);

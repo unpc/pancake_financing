@@ -57,7 +57,7 @@ require(['main'], function($){
                 phone: $form.find('input[name=authToken]').val()
             },
 			success: function(data) {
-                interval = 120
+                interval = 300
                 me.addClass('disabled').html(interval)
                 adjustInterval = setInterval(function(){
                     if (interval <= 0) {
