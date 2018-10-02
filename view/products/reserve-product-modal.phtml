@@ -1,0 +1,100 @@
+<div id="reserve-product-modal" class="modal fade in">
+<div class="modal-dialog"><div class="modal-content">
+    <div class="modal-header">
+        <div class="alert alert-dismissible alert-primary">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><?= H(T('购买预约')) ?></h4>
+        </div>
+    </div>
+    <div class="modal-body">
+        <?php $me = _G('ME'); ?>
+        <form id="reserve-product-form" method="POST" action="gini-ajax:ajax/product/reserve/<?= (int)$product->id ?>">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group <?= isset($form['_errors']['time']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['time'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['time']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="time"><?= H('预约时间') ?></label>
+                        <input id="time" name="time" type="text" class="form-control date" autocomplete="off" value="<?= $form['time'] ?: date('Y-m-d') ?>" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group <?= isset($form['_errors']['time_m']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['time_m'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['time_m']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="time_m"><?= H('时间段') ?></label>
+                        <select class="selectpicker form-control" name="time_m" size="1">
+                            <option value="上午" <?= ($form['time_m'] == '上午' || !$form['time_m']) ? "selected" : '' ?>><?= T('上午') ?></option>
+                            <option value="下午" <?= $form['time_m'] == '下午' ? "selected" : '' ?>><?= T('下午') ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group <?= isset($form['_errors']['name']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['name'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['name']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="name"><?= H('姓名') ?></label>
+                        <input id="name" name="name" type="text" class="form-control" autocomplete="off" value="<?= $form['_errors'] ? $form['name'] : $me->name ?>" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group <?= isset($form['_errors']['phone']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['phone'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['phone']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="phone"><?= H('手机号') ?></label>
+                        <input id="phone" name="phone" type="text" class="form-control" autocomplete="off" value="<?= $form['_errors'] ? $form['phone'] : $me->username ?>" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button class="btn btn-save btn-raised" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times fa-fw "></i><?= H(T('关闭')) ?></button>
+            <button class="btn btn-ok btn-raised" form="reserve-product-form" type="submit"><i class="fa fa-plus fa-fw"></i> <?= H(T('预约')) ?></button>
+        <div class="row">
+    </div>
+</div></div>
+</div>
+<script data-ajax="true">
+require(['main'], function($){
+
+    var $modal = $('#reserve-product-modal');
+    $modal
+    .on('hidden.bs.modal', function(){
+        $modal.remove();
+    })
+    .modal();
+
+    $('#reserve-product-form').on('ajax-success', function(){
+        $modal
+        .removeAttr('id').modal('hide')
+        .find('[id]').removeAttr('id');
+    });
+
+    require(['bootstrap-select', 'css!../css/bootstrap-select'], function(){
+        $('.selectpicker').selectpicker()
+    })
+
+    require(['bootstrap-datepicker', 'locales/bootstrap-datepicker.zh-CN', 'css!../css/bootstrap-datepicker'], function(){
+        $('.date').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN',
+            minView: 'day'
+        })
+    })
+});

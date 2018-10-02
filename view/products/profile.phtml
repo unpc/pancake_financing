@@ -10,7 +10,7 @@
             <div class="col-md-6">
                 <div class="profile-content">
                     <div class="pub-tag">
-                        <strong>预售期</strong>
+                        <strong>开放日</strong>
                         <small><?= $product->open_day ?></small>
                         <div class="tag-shadow"></div>
                     </div>
@@ -48,7 +48,9 @@
                         </div>
                     </div>
                     <div class="buttons row">
-                        <div class="col-md-6 col-xs-12"><a class="btn btn-primary btn-block"><?= T('立即预约') ?></a></div>
+                        <div class="col-md-6 col-xs-12">
+                            <a class="btn btn-primary btn-block" href="gini-ajax:ajax/product/reserve/<?= (int)$product->id ?>"><?= T('立即预约') ?></a>
+                        </div>
                     </div>
                 </div>
             </div>

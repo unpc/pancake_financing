@@ -10,6 +10,7 @@
         </div>
         <?php if ($me->id): ?>
             <a href="<?= URL('/mine') ?>" class="btn btn-success btn-block"><?= T('个人中心') ?></a>
+            <a href="<?= URL('/manage') ?>" class="btn btn-success btn-block"><?= T('管理中心') ?></a>
         <?php else: ?>
             <a href="<?= URL('/login/register') ?>" class="btn btn-primary btn-block"><?= T('立即注册') ?></a>
             <a href="<?= URL('/login') ?>" class="btn btn-primary btn-block"><?= T('安全登录') ?></a>
@@ -20,19 +21,25 @@
     </div>
     <div id="carousel" class="carousel slide" data-ride="carousel">
         <?php
-            $imgs = ['banner1.jpg', 'banner2.jpg', 'banner3.jpg', 'banner4.jpg'];
+            $basePath = APP_PATH.'/'.DATA_DIR.'/banner/';
+            $imgs = [];
+            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($basePath), \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+                if (!preg_match("/^\./", $file->getFileName())) {
+                    $imgs[] = $file->getFileName();
+                }
+            }
         ?>
         <ol class="carousel-indicators">
-            <?php $num = 0; foreach ($imgs as $file): ?>
-                <li data-target="#carousel" data-slide-to="<?= $num ?>" class="<?= $num ==0 ? 'active' : ''?>"></li>
-            <?php $num ++; endforeach; ?>    
+            <?php foreach ($imgs as $k => $file): ?>
+                <li data-target="#carousel" data-slide-to="<?= $k ?>" class="<?= $k == 0 ? 'active' : ''?>"></li>
+            <?php endforeach; ?>    
         </ol>
         <div class="carousel-inner" role="listbox" style="height: 300px;">
-            <?php $num = 0; foreach ($imgs as $file): ?>
-                <div class="item <?= $num ==0 ? 'active' : ''?>">
-                    <img src="<?= URL("/assets/img/{$file}") ?>" style="width: 100%; height: 100%; max-width: 100%; display: block;" />
+            <?php foreach ($imgs as $k => $file): ?>
+                <div class="item <?= $k == 0 ? 'active' : ''?>">
+                    <img src="<?= URL("/data/banner/{$file}") ?>" style="width: 100%; height: 100%; max-width: 100%; display: block;" />
                 </div>
-            <?php $num ++; endforeach; ?>
+            <?php endforeach; ?>
         </div>
         <script>
         require(['main'], function($){

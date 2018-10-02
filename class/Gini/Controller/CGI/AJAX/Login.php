@@ -27,10 +27,10 @@ class Login extends \Gini\Controller\CGI
 
         // 发送短信码
         $http = new \Gini\HTTP();
-        $r = $http->request('get', 'https://api.smsbao.com/sms', [
+        $r = $http->request('get', 'http://api.smsbao.com/sms', [
             'u' => 'jianbing',
             'p' => md5('23155212'),
-            'm' => H($form['phone']),
+            'm' => $code->phone,
             'c' => urlencode(strtr("【煎饼财富】您正在注册煎饼财富，验证码%code（切勿泄露！），有效期5分钟，任何人向您索要，或要求您打开网页输入验证码均是诈骗行为。如非本人操作，请致电4009618893。", ['%code' => $code->identity]))
         ]);
         

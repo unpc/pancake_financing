@@ -138,4 +138,39 @@ class Product extends \Gini\Controller\CGI
 
         return \Gini\IoC::construct('\Gini\CGI\Response\JSON', $objects);
     }
+
+    public function actionReserve($id=0)
+    {
+        $me = _G('ME');
+        $form = $this->form();
+        $product = a('product', $id);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $validator = new \Gini\CGI\Validator;
+
+            try {
+                $validator
+                    ->validate('name', $form['name'], T('姓名不能为空！'))
+                    ->validate('phone', H($form['phone']), T('手机号不能为空!'))
+                    ->done();
+
+                $reserve = a('reserve');
+                $reserve->user = $me;
+                $reserve->name = H($form['name']);
+                $reserve->phone = H($form['phone']);
+                $reserve->product = $product;
+                $reserve->time = H($form['time']);
+                $reserve->time_m = H($form['time_m']);
+                $reserve->save();
+
+                return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
+            } catch (\Gini\CGI\Validator\Exception $e) {
+                $form['_errors'] = $validator->errors();
+            }
+        }
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\HTML', V('products/reserve-product-modal', [
+            'form' => $form,
+            'product' => $product
+        ]));
+    }
 }
