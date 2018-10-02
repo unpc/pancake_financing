@@ -35,6 +35,12 @@ html,body {
 	.hr { height: 10px; }
 	.hr_2 { height: 20px; }
 
+	#carousel {
+		.carousel-inner {
+			height: 300px;
+		}
+	}
+
 	.modal-content {
 		border-radius: 0px;
 		.alert { margin-bottom: 0px; padding: 0px; }
@@ -783,11 +789,28 @@ html,body {
 
 @media (max-width: 768px) {
 	body {
-		#header .header-top, #header .header-menu, #body .products, #footer,  {
+		#carousel {
+			.carousel-inner {
+				height: auto;
+			}
+		}
+		#body .product-list .product-desc {
+			margin-bottom: 10px;
+		}
+		#header .header-top, #header .header-menu, #body .products, #footer,  #body .card-list, #body .product-list {
 			padding: 10px 5px;
 		}
 		#body .slider, #body .slider-block {
 			margin: 10px 5px;
+			.login-box {
+				position: relative;
+				width: 100%;
+				height: auto;
+				right: 0;
+				.button {
+					position: relative;
+				}
+			}
 		}
 		#header .header-menu .menu {
 			float: left;
