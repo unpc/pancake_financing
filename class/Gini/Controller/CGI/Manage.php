@@ -106,4 +106,21 @@ class Manage extends Layout\Index
             'agreements' => $agreements
         ]);
     }
+
+    public function actionReserve()
+    {
+        $me = _G('ME');
+        if (!\Gini\Auth::isLoggedIn() || !$me->id) {
+            $this->redirect('/login');
+        }
+        $form = $this->form();
+        $reserves = those('reserve')->orderBy('ctime', 'D');
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+        }
+        $this->view->body = V("admin/reserve", [
+            'form' => $form,
+            'active' => 'reserve',
+            'reserves' => $reserves
+        ]);
+    }
 }

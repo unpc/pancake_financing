@@ -1,0 +1,50 @@
+<div class="slider">
+    <?php $me = _G('ME'); ?>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL('/') ?>">首页</a></li>
+        <li><a href="<?= URL('/mine') ?>"><?= T('个人中心') ?></a></li>
+        <li><?= T('管理中心') ?></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-2">
+            <?= V('admin/sidebar', ['active' => $active]) ?>
+        </div>
+        <div class="col-md-10">
+            <?= V('confirm') ?>
+            <div class="admin-container">
+                <h1 class="title">
+                    <span></span>预约信息
+                </h1>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="bg bg-primary">
+                            <td><?= T('姓名') ?></td>
+                            <td class="hidden-xs"><?= T('手机') ?></td>
+                            <td class="hidden-xs"><?= T('产品') ?></td>
+                            <td><?= T('产品编号') ?></td>
+                            <td><?= T('预约时间') ?></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <?php if (!count($reserves)): ?>
+                            <tr>
+                                <td colspan="6"><p class="text-center red"><?= T('没有任何预约信息!') ?></p></td>
+                            </tr>
+                        <?php
+                            else: foreach($reserves as $reserve): 
+                        ?>
+                            <tr>
+                                <td><?= H($reserve->name) ?></td>
+                                <td class="hidden-xs"><?= H($reserve->phone) ?></td>
+                                <td class="hidden-xs"><?= H($reserve->product->title) ?></td>
+                                <td><?= H($reserve->product->number) ?></td>
+                                <td><?= date('Y-m-d ', strtotime($reserve->time)) . H($reserve->time_m) ?></td>
+                            </tr>
+                        <?php endforeach; endif;?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="hr_2"></div>
+</div>
