@@ -11,6 +11,10 @@ class Manage extends Layout\Index
             $this->redirect('/login');
         }
 
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
+
         $users = those('user');
 
         $form = $this->form();
@@ -28,6 +32,9 @@ class Manage extends Layout\Index
         $me = _G('ME');
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
         $products = those('product');
 
@@ -47,6 +54,9 @@ class Manage extends Layout\Index
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
         }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         $news = those('news');
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
@@ -63,6 +73,9 @@ class Manage extends Layout\Index
         $me = _G('ME');
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
@@ -81,6 +94,9 @@ class Manage extends Layout\Index
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
         }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
@@ -95,6 +111,9 @@ class Manage extends Layout\Index
         $me = _G('ME');
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
         $form = $this->form();
         $agreements = those('agreement');
@@ -112,6 +131,9 @@ class Manage extends Layout\Index
         $me = _G('ME');
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
             $this->redirect('/login');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
         $form = $this->form();
         $reserves = those('reserve')->orderBy('ctime', 'D');

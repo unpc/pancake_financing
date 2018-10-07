@@ -7,6 +7,9 @@ class User extends \Gini\Controller\CGI
     public function actionAdd()
     {
         $me = _G('ME');
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $validator = new \Gini\CGI\Validator();
@@ -58,7 +61,9 @@ class User extends \Gini\Controller\CGI
         if (!$user->id) {
             $this->redirect('error/404');
         }
-
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         $form = $this->form();
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $validator = new \Gini\CGI\Validator();
@@ -111,7 +116,9 @@ class User extends \Gini\Controller\CGI
         if (!$user->id) {
             $this->redirect('error/404');
         }
-
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         //remove this user
         $user->delete();
 

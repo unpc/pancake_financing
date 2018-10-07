@@ -8,6 +8,9 @@ class Agreement extends \Gini\Controller\CGI
     {
         $me = _G('ME');
         $form = $this->form();
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $validator = new \Gini\CGI\Validator();
 
@@ -47,6 +50,9 @@ class Agreement extends \Gini\Controller\CGI
         if (!$agreement->id) {
             $this->redirect('error/404');
         }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $validator = new \Gini\CGI\Validator();
 
@@ -85,7 +91,10 @@ class Agreement extends \Gini\Controller\CGI
         if (!$agreement->id) {
             $this->redirect('error/404');
         }
-
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
+        
         //remove this user
         $agreement->delete();
 

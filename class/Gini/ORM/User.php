@@ -33,6 +33,11 @@ class User extends Object
 
     public function isAllowedTo($action, $object = null, $when = null, $where = null) {
 
+        $admins = (array) \Gini\Config::get('admin.token');
+        if (in_array($this->username, $admins)) {
+            return true;
+        }
+
         if ($object === null) {
             return \Gini\Event::trigger(
                 "user.isAllowedTo[$action]",

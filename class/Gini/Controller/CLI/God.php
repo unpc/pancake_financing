@@ -2,7 +2,7 @@
 
 namespace Gini\Controller\CLI;
 
-class God extends \Gini\Controller\CLI
+class Pancake extends \Gini\Controller\CLI
 {
     public function __index($args)
     {
@@ -37,5 +37,10 @@ class God extends \Gini\Controller\CLI
 
         $auth = \Gini\IoC::construct('\Gini\Auth', $username);
         $auth->create($password);
+    }
+
+    public function actionWechatCreateMenu()
+    {
+        $http = new \Gini\HTTP();
     }
 }

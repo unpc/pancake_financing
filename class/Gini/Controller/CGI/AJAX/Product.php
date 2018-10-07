@@ -8,6 +8,9 @@ class Product extends \Gini\Controller\CGI
     {
         $me = _G('ME');
         $form = $this->form();
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $validator = new \Gini\CGI\Validator;
 
@@ -56,6 +59,9 @@ class Product extends \Gini\Controller\CGI
         $form = $this->form();
         $product = a('product', $id);
         if (!$product->id) {
+            $this->redirect('error/401');
+        }
+        if (!$me->isAllowedTo('管理')) {
             $this->redirect('error/401');
         }
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -108,6 +114,9 @@ class Product extends \Gini\Controller\CGI
         $product = a('product', $id);
         if (!$product->id) {
             $this->redirect('error/404');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
         //remove this project
         $product->delete();

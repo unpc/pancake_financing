@@ -10,7 +10,9 @@
         </div>
         <?php if ($me->id): ?>
             <a href="<?= URL('/mine') ?>" class="btn btn-success btn-block"><?= T('个人中心') ?></a>
-            <a href="<?= URL('/manage') ?>" class="btn btn-success btn-block"><?= T('管理中心') ?></a>
+            <?php if($me->isAllowedTo('管理')): ?>
+                <a href="<?= URL('/manage') ?>" class="btn btn-success btn-block"><?= T('管理中心') ?></a>
+            <?php endif; ?>
         <?php else: ?>
             <a href="<?= URL('/login/register') ?>" class="btn btn-primary btn-block"><?= T('立即注册') ?></a>
             <a href="<?= URL('/login') ?>" class="btn btn-primary btn-block"><?= T('安全登录') ?></a>

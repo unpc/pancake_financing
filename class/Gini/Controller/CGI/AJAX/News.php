@@ -8,6 +8,9 @@ class News extends \Gini\Controller\CGI
     {
         $me = _G('ME');
         $form = $this->form();
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $validator = new \Gini\CGI\Validator();
 
@@ -38,6 +41,9 @@ class News extends \Gini\Controller\CGI
     public function actionEdit($id=0)
     {
         $me = _G('ME');
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
+        }
         $form = $this->form();
         $new = a('news', $id);
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
@@ -72,6 +78,9 @@ class News extends \Gini\Controller\CGI
         $new = a('news', $id);
         if (!$new->id) {
             $this->redirect('error/404');
+        }
+        if (!$me->isAllowedTo('管理')) {
+            $this->redirect('error/401');
         }
 
         //remove this news
