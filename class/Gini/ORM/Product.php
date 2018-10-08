@@ -21,11 +21,14 @@ class Product extends Object
     public $amount = 'int';
     public $number = 'string:50';
 
+    public $publish = 'int';
+
     protected static $db_index = [
         'title',
         'status',
         'ctime',
         'amount',
+        'publish',
         'unique:number'
     ];
 
@@ -53,6 +56,14 @@ class Product extends Object
         self::STATUS_SQ => '售罄',
         self::STATUS_FBQ => '封闭期',
         self::STATUS_YZZ => '已终止'
+    ];
+
+    const PUBLISH_NOTHING = 0;
+    const PUBLISH_YET = 1;
+
+    public static $PUBLISH = [
+        self::PUBLISH_NOTHING => '未发布',
+        self::PUBLISH_YET => '已发布'
     ];
 
     public function save()

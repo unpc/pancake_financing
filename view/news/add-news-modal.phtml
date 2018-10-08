@@ -3,21 +3,36 @@
     <div class="modal-header">
         <div class="alert alert-dismissible alert-primary">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><?= H(T('添加新闻公告')) ?></h4>
+            <h4 class="modal-title"><?= H(T('添加公告')) ?></h4>
         </div>
     </div>
     <div class="modal-body" style="padding-top:20px;">
         <form id="add-news-form" method="POST" action="gini-ajax:ajax/news/add">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group <?= isset($form['_errors']['title']) ? ' has-error':'' ?>">
                         <?php if (isset($form['_errors']['title'])) { ?>
                         <span class="label label-danger pull-right">
                             <?= H($form['_errors']['title']) ?>
                         </span>
                         <?php } ?>
-                        <label class="control-label" for="title"><?= H('新闻标题') ?></label>
+                        <label class="control-label" for="title"><?= H('公告标题') ?></label>
                         <input id="title" name="title" type="text" class="form-control" value="<?= H($form['title']) ?>"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group label-floating is-empty">
+                        <?php if (isset($form['_errors']['type'])) { ?>
+                        <span class="badge badge-danger pull-right">
+                            <?= H($form['_errors']['type']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="type"><?= H('公告类型') ?></label>
+                        <select class="selectpicker form-control <?= isset($form['_errors']['type']) ? 'is-invalid' : '' ?>" name="type" id="type" size="1">
+                            <?php foreach (\Gini\ORM\News::$TYPE as $k => $v): ?>
+                                <option value="<?= T($k) ?>" <?= $form['type'] == $k ? "selected" : '' ?>><?= T($v) ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
             </div>

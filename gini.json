@@ -15,6 +15,9 @@
     "composer": {
 	"config": {
             "secure-http": false
-    	}
+    	},
+	"require": {
+            "iamfat/wechat": "dev-master"
+        }
     }
 }

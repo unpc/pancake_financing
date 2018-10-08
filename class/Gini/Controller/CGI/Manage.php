@@ -14,16 +14,20 @@ class Manage extends Layout\Index
         if (!$me->isAllowedTo('管理')) {
             $this->redirect('error/401');
         }
+        $form = $this->form();
+        $step = 10;
 
         $users = those('user');
+        $pagination = \Gini\Model\Help::pagination($users, $form['st'], $step);
 
-        $form = $this->form();
+        
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
         $this->view->body = V("admin/users", [
             'form' => $form,
             'active' => 'users',
-            'users' => $users
+            'users' => $users,
+            'pagination' => $pagination
         ]);
     }
 

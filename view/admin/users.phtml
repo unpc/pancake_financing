@@ -46,7 +46,7 @@
                                 <td class="hidden-xs"><?= T($user->group_name) ?: '--' ?></td>
                                 <td><?= \Gini\ORM\User::$TYPE[$user->type] ?></td>
                                 <td><?= join(', ', $perms) ?: '无' ?></td>
-                                <td>
+                                <td class="text-right">
                                     <a href="gini-ajax:ajax/user/edit/<?= (int)$user->id ?>"><i class="fa fa-fw fa-edit"></i></a>
                                     <a 
                                         data-confirm="<?= H(T('您确认删除用户:user吗?', [':user'=>$user->name])) ?>"
@@ -57,6 +57,7 @@
                         <?php endforeach; endif;?>
                     </tbody>
                 </table>
+                <?= $pagination ?>
             </div>
         </div>
     </div>

@@ -3,9 +3,10 @@
         "league/oauth2-client": "dev-master",
         "league/oauth2-server": "3.*",
         "sabre/dav": "2.*",
-        "doctrine/inflector": "@stable"
+        "doctrine/inflector": "@stable",
+	"iamfat/wechat": "dev-master"
     },
-    "name": "unpc",
+    "name": "Pancake Fin",
     "description": "Unpc Site Template",
     "license": "proprietary",
     "type": "library",
@@ -23,13 +24,10 @@
         "natxet/CssMin": "3.*",
         "henrikbjorn/lurker": "1.*"
     },
-    "repositories": [
-        {
+    "repositories": {
+	"packagist": {
             "type": "composer",
-            "url": "http://satis.genee.cn"
-        },
-        {
-            "packagist": false
+            "url": "https://packagist.laravel-china.org"
         }
-    ]
+    }
 }

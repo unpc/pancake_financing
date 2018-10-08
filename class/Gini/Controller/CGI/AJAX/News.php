@@ -18,6 +18,7 @@ class News extends \Gini\Controller\CGI
 
                 $validator
                     ->validate('title', $form['title'], T('标题不能为空!'))
+                    ->validate('type', $form['type'], T('类别不能为空!'))
                     ->done();
 
                 $n = a('news');
@@ -25,6 +26,7 @@ class News extends \Gini\Controller\CGI
                 $n->content = $form['content'];
                 $n->ctime = date('Y-m-d H:i:s');
                 $n->publish = date('Y-m-d H:i:s');
+                $n->type = (int)$form['type'];
                 $n->save();
 
                 return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
@@ -53,11 +55,13 @@ class News extends \Gini\Controller\CGI
 
                 $validator
                     ->validate('title', $form['title'], T('标题不能为空!'))
+                    ->validate('type', $form['type'], T('类别不能为空!'))
                     ->done();
 
                 $new->title = H($form['title']);
                 $new->content = $form['content'];
                 $new->publish = date('Y-m-d H:i:s');
+                $new->type = (int)$form['type'];
                 $new->save();
 
                 return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');

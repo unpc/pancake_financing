@@ -6,6 +6,7 @@ class News extends Object
 {
     public $title = 'string:200';
     public $content = 'string:*';
+    public $type = 'int:1';
     public $ctime = 'datetime';
     public $publish = 'datetime';
 
@@ -13,6 +14,15 @@ class News extends Object
         'title',
         'publish',
         'ctime',
+        'type'
+    ];
+
+    const TYPE_NORMAL = 1;
+    const TYPE_PRODUCT = 2;
+
+    public static $TYPE = [
+        self::TYPE_NORMAL => '新闻公告',
+        self::TYPE_PRODUCT => '产品公告'
     ];
 
     public function save()
