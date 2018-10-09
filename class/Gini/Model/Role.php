@@ -8,6 +8,13 @@ class Role
     {
         switch ($action) {
             case '管理':
+                if ($user->is_admin || $user->is_runner) {
+                    $e->abort();
+
+                    return true;
+                }
+                break;
+            case '超级管理':
                 if ($user->is_admin) {
                     $e->abort();
 

@@ -2,7 +2,7 @@
 
 namespace Gini\Controller\CGI;
 
-class Error extends Layout\God {
+class Error extends Layout\Index {
 
     function __index($code = 404) {
         

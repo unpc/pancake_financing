@@ -42,8 +42,9 @@ class Manage extends Layout\Index
         }
         $form = $this->form();
         $step = 10;
-        $products = those('product');
-        $products = $products->whose('publish')->is((int)$publish);
+        $products = those('product')->whose('publish')->is((int)$publish);
+
+        $products = $products->orderBy('ctime', 'D');
 
         $pagination = \Gini\Model\Help::pagination($products, $form['st'], $step);
 

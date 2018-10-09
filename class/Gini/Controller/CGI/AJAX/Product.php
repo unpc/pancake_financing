@@ -39,6 +39,8 @@ class Product extends \Gini\Controller\CGI
                 $product->distribution = H($form['distribution']);
                 $product->redemption_rate = H($form['redemption_rate']);
                 $product->amount = (int)$form['amount'];
+                $product->balance = (int)$form['amount'];
+                $product->rate = H($form['rate']);
                 $product->save();
 
 
@@ -93,6 +95,7 @@ class Product extends \Gini\Controller\CGI
                 $product->distribution = H($form['distribution']);
                 $product->redemption_rate = H($form['redemption_rate']);
                 $product->amount = (int)$form['amount'];
+                $product->rate = H($form['rate']);
                 $product->save();
 
 
@@ -115,7 +118,7 @@ class Product extends \Gini\Controller\CGI
         if (!$product->id) {
             $this->redirect('error/404');
         }
-        if (!$me->isAllowedTo('管理')) {
+        if (!($product->publish == 0 || $me->isAllowedTo('超级管理'))) {
             $this->redirect('error/401');
         }
         //remove this project
@@ -133,7 +136,8 @@ class Product extends \Gini\Controller\CGI
         try {
             $products = those('product')
                     ->whose('title')->contains(H($form['query']))
-                    ->orWhose('number')->contains(H($form['query']));
+                    ->orWhose('number')->contains(H($form['query']))
+                    ->whose('publish')->is(\Gini\ORM\Product::PUBLISH_YET);
             foreach ($products as $key => $product) {
                 $objects[$key] = [
                     'name' => $product->title,
@@ -190,7 +194,7 @@ class Product extends \Gini\Controller\CGI
         if (!$product->id) {
             $this->redirect('error/404');
         }
-        if (!$me->isAllowedTo('管理')) {
+        if (!$me->isAllowedTo('超级管理')) {
             $this->redirect('error/401');
         }
         //remove this project

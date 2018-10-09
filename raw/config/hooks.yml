@@ -1,6 +1,8 @@
 ---
 user.isAllowedTo[管理]:
 - callback:\Gini\Model\Role::userACL
+user.isAllowedTo[超级管理]:
+- callback:\Gini\Model\Role::userACL
 user.isAllowedTo[修改基本信息].user:
 - callback:\Gini\Model\Role::userACL
 ...

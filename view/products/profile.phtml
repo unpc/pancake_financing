@@ -18,8 +18,8 @@
                     <h3 class="type"><?= H($product->Issuer) ?></h3>
                     <div class="row column-desc">
                         <div class="col-md-4 col-xs-12 column">
-                            <h4>业绩比较基准</h4>
-                            <p class="xm red">8.50<small>%</small></p>
+                            <h4>收益率</h4>
+                            <p class="xm red"><?= $product->rate ?: '0.00' ?><small>%</small></p>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h4>期限</h4>
@@ -27,20 +27,20 @@
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h4>起购（元）</h4>
-                            <p class="xm"><?= H($product->purchase) ?></p>
+                            <p class="xm"><?= H($product->purchase / 10000) ?>万</p>
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"></div>
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
                     </div>
                     <div class="row column-time">
                         <div class="col-md-4 col-xs-12 column">
-                            <h5>购买时间</h5>
+                            <h5>预计开放日</h5>
                             <h6><?= $product->open_day ?></h6>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
-                            <h5>预计起息日</h5>
-                            <h6><?= date('Y-m-d H:i:s', strtotime($product->open_day) + 2 * 86400) ?></h6>
+                            <h5>预计购买日</h5>
+                            <h6><?= $product->open_day ?></h6>
                         </div>
                         <div class="col-md-4 col-xs-12 column">
                             <h5>预计到期日</h5>
@@ -54,7 +54,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div style="padding-top: 60px;"><div class="circleChart"></div></div>
+            </div>
         </div>
     </div>
     <div class="hr_2"></div>
@@ -72,8 +74,8 @@
                 </div>
                 <h3 class="title">购买规则</h3>
                 <div class="row">
-                    <div class="col-md-2 col-xs-4 bg">购买金额</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase) ?></div>
+                    <div class="col-md-2 col-xs-4 bg">起购金额</div>
+                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase / 10000) ?>万</div>
                     <div class="col-md-2 col-xs-4 bg">固定管理费</div>
                     <div class="col-md-4 col-xs-8 body"><?= H($product->admin_rate) ?></div>
                     <div class="col-md-2 col-xs-4 bg">购买对象</div>
@@ -90,4 +92,21 @@
         </div>
     </div>
     <div class="hr_2"></div>
+    <?php $float = sprintf('%.2f', ($product->amount - $product->balance) / $product->amount * 100) ; ?>
 </div>
+<script>
+require(['main'], function($){
+    require(['circleChart'], function(){
+        $(".circleChart").circleChart({
+            color: '#F4610C',
+            value: <?= $float ?>,
+            text: '<?= $float ?>' + '%',
+            startAngle: 75,
+            speed: 1000,
+            widthRatio: 0.2,
+            size: 220,
+            animation: "easeInOutCubic"
+        });
+    })
+})
+</script>

@@ -48,18 +48,20 @@
                                 <td class="hidden-xs"><?= T($product->Issuer) ?></td>
                                 <td class="text-right">
                                     <a href="gini-ajax:ajax/product/edit/<?= (int)$product->id ?>" title="编辑"><i class="fa fa-fw fa-edit"></i></a>
-                                    <?php if($product->publish == 0): ?>
+                                    <?php if($product->publish == 0 && $me->isAllowedTo('超级管理')): ?>
                                         <a 
                                             data-confirm="<?= H(T('您确认审批发布产品:product吗?', [':product'=>$product->title])) ?>"
                                             data-confirm-description="<?= H(T('点击确认后产品信息将会发布到首页, 请谨慎处理!')) ?>"
                                             href="gini-ajax:ajax/product/approval/<?= (int)$product->id ?>"
                                             title="审批"><i class="fa fa-fw fa-repeat"></i></a>
                                     <?php endif; ?>
+                                    <?php if($product->publish == 0 || $me->isAllowedTo('超级管理')): ?>
                                     <a 
                                         data-confirm="<?= H(T('您确认删除产品:product吗?', [':product'=>$product->title])) ?>"
                                         data-confirm-description="<?= H(T('点击确认后会删除该产品信息, 请谨慎处理!')) ?>"
                                         href="gini-ajax:ajax/product/delete/<?= (int)$product->id ?>"
                                         title="删除"><i class="fa fa-fw fa-close"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; endif;?>

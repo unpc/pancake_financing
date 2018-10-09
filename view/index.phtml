@@ -61,12 +61,13 @@
         <div class="col-md-4">
             <div class="product-desc">
                 <h3><?= H($product->title) ?></h3>
-                <div class="rate">8.80<small>%</small></div>
-                <p class="remark">业绩比较基准</p>
+                <em><?= H($product->rate ?: '0.00') ?>%</em>
+                <div class="rate"><?= H(date('Y-m-d', strtotime($product->open_day))) ?></div>
+                <p class="remark">开放日</p>
                 <div class="list clearfix">
-                    <div class="wrap"><span><strong><?= (int)$product->dead_day ?>天</strong>期限</span></div>
+                    <div class="wrap"><span><strong><?= (int)$product->dead_day ?>天</strong> 期限</span></div>
                     <div class="line"></div>
-                    <div class="wrap"><span><?= H($product->purchase) ?></span></div>
+                    <div class="wrap"><span><strong><?= H($product->purchase / 10000) ?>万</strong> 起购(元)</span></div>
                 </div>
                 <p class="btn-wrap">
                     <a class="btn btn-primary btn-block" href="<?= URL("/product/{$product->id}") ?>"><?= T('查看详情') ?></a>
@@ -102,14 +103,16 @@
                     <a href="<?= URL("/product/{$product->id}") ?>"><p class="pro-name"><?= H($product->title) ?></p></a>
                 </td>
                 <td class="col-xs-2 hidden-xs">
-                    <p class="pro-type">固定收益</p>
+                    <p class="pro-openday"><?= H(date('Y-m-d', strtotime($product->open_day))) ?></p>
+                    <p class="pro-remark">开放日</p>
                 </td>
                 <td class="col-xs-2 hidden-xs">
                     <p class="pro-data"><?= (int)$product->dead_day ?>天</p>
                     <p class="pro-remark">期限</p>
                 </td>
                 <td class="hidden-xs">
-                    <p class="pro-remark"><?= H($product->purchase) ?></p>
+                    <p class="pro-data"><?= H($product->purchase / 10000) ?>万</p>
+                    <p class="pro-remark">起购(元)</p>
                 </td>
                 <td class="col-xs-2">
                     <p class="pro-btn text-right">

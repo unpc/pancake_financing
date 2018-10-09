@@ -83,22 +83,36 @@
         </div>
         <div class="row">
             <div class="col-md-6">
+                <div class="form-group label-floating is-empty <?= isset($form['_errors']['amount']) ? ' has-error':'' ?>">
+                    <?php if (isset($form['_errors']['amount'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['amount']) ?>
+                        </span>
+                    <?php } ?>
+                    <label for="amount" class="control-label"><?= H(T('购买总额')) ?></label>
+                    <div class="input-group">
+                        <div class="input-group-addon">￥</div>
+                        <input type="text" class="form-control" id="amount" placeholder="总额" name="amount" autocomplete="off" value="<?= H($form['amount']) ?>">
+                        <div class="input-group-addon">万元</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group <?= isset($form['_errors']['purchase']) ? ' has-error':'' ?>">
                     <?php if (isset($form['_errors']['purchase'])) { ?>
                     <span class="label label-danger pull-right">
                         <?= H($form['_errors']['purchase']) ?>
                     </span>
                     <?php } ?>
-                    <label class="control-label" for="purchase"><?= H(T('购买金额')) ?></label>
-                    <input id="purchase" name="purchase" type="text" class="form-control" autocomplete="off" value="<?= H($form['purchase']) ?>" />
+                    <label class="control-label" for="purchase"><?= H(T('起购金额')) ?></label>
+                    <div class="input-group">
+                        <div class="input-group-addon">￥</div>
+                        <input id="purchase" name="purchase" type="text" class="form-control" autocomplete="off" value="<?= H($form['purchase']) ?>" />
+                        <div class="input-group-addon">.00</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group label-floating is-empty">
-                    <label for="admin_rate" class="control-label"><?= H(T('规定管理费率')) ?></label>
-                    <input type="text" class="form-control" id="admin_rate" name="admin_rate" autocomplete="off" value="<?= H($form['admin_rate']) ?>" >
-                </div>
-            </div>
+            
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -122,17 +136,19 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group label-floating is-empty <?= isset($form['_errors']['amount']) ? ' has-error':'' ?>">
-                    <?php if (isset($form['_errors']['amount'])) { ?>
-                        <span class="label label-danger pull-right">
-                            <?= H($form['_errors']['amount']) ?>
-                        </span>
-                    <?php } ?>
-                    <label for="amount" class="control-label"><?= H(T('购买总额')) ?></label>
+                <div class="form-group label-floating is-empty">
+                    <label for="admin_rate" class="control-label"><?= H(T('规定管理费率')) ?></label>
+                    <input type="text" class="form-control" id="admin_rate" name="admin_rate" autocomplete="off" value="<?= H($form['admin_rate']) ?>" >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group label-floating is-empty">
+                    <label for="rate" class="control-label"><?= H(T('收益率')) ?></label>
                     <div class="input-group">
-                        <div class="input-group-addon">￥</div>
-                        <input type="text" class="form-control" id="amount" placeholder="总额" name="amount" autocomplete="off" value="<?= H($form['amount']) ?>">
-                        <div class="input-group-addon">.00</div>
+                        <input id="rate" name="rate" type="text" class="form-control" autocomplete="off" value="<?= H($form['rate']) ?>" />
+                        <div class="input-group-addon">%</div>
                     </div>
                 </div>
             </div>
