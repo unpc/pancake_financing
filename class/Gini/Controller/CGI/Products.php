@@ -11,7 +11,7 @@ class Products extends Layout\Index
         $form = $this->form();
         $get_form = (array)$this->form('get');
         $step = 10;
-        $products = those('product');
+        $products = those('product')->whose('publish')->is(\Gini\ORM\Product::PUBLISH_YET);
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             //获取post参数 并校验

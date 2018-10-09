@@ -31,7 +31,7 @@ class Manage extends Layout\Index
         ]);
     }
 
-    public function actionProduct()
+    public function actionProduct($publish=0)
     {
         $me = _G('ME');
         if (!\Gini\Auth::isLoggedIn() || !$me->id) {
@@ -40,15 +40,19 @@ class Manage extends Layout\Index
         if (!$me->isAllowedTo('管理')) {
             $this->redirect('error/401');
         }
-        $products = those('product');
-
         $form = $this->form();
-        if ('POST' == $_SERVER['REQUEST_METHOD']) {
-        }
+        $step = 10;
+        $products = those('product');
+        $products = $products->whose('publish')->is((int)$publish);
+
+        $pagination = \Gini\Model\Help::pagination($products, $form['st'], $step);
+
         $this->view->body = V("admin/products", [
             'form' => $form,
             'active' => 'product',
-            'products' => $products
+            'products' => $products,
+            'publish' => $publish,
+            'pagination' => $pagination
         ]);
     }
 
