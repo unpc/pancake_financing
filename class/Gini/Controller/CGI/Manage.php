@@ -65,14 +65,21 @@ class Manage extends Layout\Index
         if (!$me->isAllowedTo('管理')) {
             $this->redirect('error/401');
         }
-        $news = those('news');
+        
         $form = $this->form();
+        $step = 10;
+        $news = those('news');
+
+        $pagination = \Gini\Model\Help::pagination($news, $form['st'], $step);
+
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
+        
         $this->view->body = V("admin/news", [
             'form' => $form,
             'active' => 'news',
-            'news' => $news
+            'news' => $news,
+            'pagination' => $pagination
         ]);
     }
 
@@ -124,13 +131,18 @@ class Manage extends Layout\Index
             $this->redirect('error/401');
         }
         $form = $this->form();
+        $step = 10;
         $agreements = those('agreement');
+
+        $pagination = \Gini\Model\Help::pagination($agreements, $form['st'], $step);
+
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
         $this->view->body = V("admin/agreement", [
             'form' => $form,
             'active' => 'agreement',
-            'agreements' => $agreements
+            'agreements' => $agreements,
+            'pagination' => $pagination
         ]);
     }
 
@@ -144,13 +156,16 @@ class Manage extends Layout\Index
             $this->redirect('error/401');
         }
         $form = $this->form();
+        $step = 10;
         $reserves = those('reserve')->orderBy('ctime', 'D');
+        $pagination = \Gini\Model\Help::pagination($reserves, $form['st'], $step);
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
         $this->view->body = V("admin/reserve", [
             'form' => $form,
             'active' => 'reserve',
-            'reserves' => $reserves
+            'reserves' => $reserves,
+            'pagination' => $pagination
         ]);
     }
 }
