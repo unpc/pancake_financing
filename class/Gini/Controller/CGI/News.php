@@ -7,12 +7,17 @@ class News extends Layout\Index
     public function __index()
     {
         $form = $this->form();
+        
+        $step = 10;
 
         $news = those('news');
 
+        $pagination = \Gini\Model\Help::pagination($news, $form['st'], $step);
+
         $this->view->body = V('news/index', [
             'news' => $news,
-            'form' => $form
+            'form' => $form,
+            'pagination' => $pagination
         ]);
     }
 

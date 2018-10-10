@@ -102,6 +102,9 @@
                 <td class="col-md-4 col-xs-6">
                     <a href="<?= URL("/product/{$product->id}") ?>"><p class="pro-name"><?= H($product->title) ?></p></a>
                 </td>
+                <td class="col-xs-2">
+                    <p class="pro-rate"><?= H($product->rate ?: '0.00') ?>%</p>
+                </td>
                 <td class="col-xs-2 hidden-xs">
                     <p class="pro-openday"><?= H(date('Y-m-d', strtotime($product->open_day))) ?></p>
                     <p class="pro-remark">开放日</p>
@@ -111,7 +114,7 @@
                     <p class="pro-remark">期限</p>
                 </td>
                 <td class="hidden-xs">
-                    <p class="pro-data"><?= H($product->purchase / 10000) ?>万</p>
+                    <p class="pro-data"><?= H($product->purchase) ?></p>
                     <p class="pro-remark">起购(元)</p>
                 </td>
                 <td class="col-xs-2">

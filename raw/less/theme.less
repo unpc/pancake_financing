@@ -105,6 +105,32 @@ html,body {
 				}
 			}
 		}
+
+		.form-horizontal {
+			.form-control {
+				border-radius: 0px;
+			}
+			.control-label {
+				text-align: left;
+				color: #666;
+				font-size: 12px;
+				font-weight: normal;
+			}
+			.operate {
+				position: absolute;
+				right: -4px;
+				top: 7px;
+				color: #666;
+			}
+			button.btn {
+				background: @red;
+				border-color: @red;
+				border-radius: 0px;
+				color: #FFF;
+				height: 30px;
+				padding: 4px 12px;
+			}
+		}
 	}
 
 	#header {
@@ -581,6 +607,11 @@ html,body {
 				}
 				.pro-openday {
 					font-size: 16px;
+					color: @red;
+					margin: 0;
+				}
+				.pro-rate {
+					font-size: 18px;
 					color: @red;
 					margin: 0;
 				}

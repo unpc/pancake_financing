@@ -10,7 +10,7 @@ class Product extends Object
     public $dead_day = 'int';
     public $open_day = 'datetime';
     // 购买金额
-    public $purchase = 'string:100';
+    public $purchase = 'int';
     public $purchase_object = 'string:100';
     public $admin_rate = 'string:10';
 
@@ -26,6 +26,9 @@ class Product extends Object
     protected static $db_index = [
         'title',
         'rate',
+        'purchase',
+        'dead_day',
+        'open_day',
         'admin_rate',
         'status',
         'ctime',

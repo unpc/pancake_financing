@@ -3,54 +3,85 @@
         <li><a href="<?= URL('/') ?>">首页</a></li>
         <li class="active"><?= T('产品列表') ?></li>
     </ol>
-    <form method="POST" action="<?= URL('/products', $get_form) ?>" id="products-search">
+    <form method="POST" class="form-horizontal" action="<?= URL('/products') ?>" id="products-search">
         <div class="row">
-            <div class="col-xs-12 col-md-8 ">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="title" placeholder="请输入产品名称或者编号" value="<?= $form['title'] ?>" />
-                    <div class="input-group-addon">
-                        <button class="none" type="submit" form='products-search'><i class="fa fa-search fa-fw"></i> 搜索</button>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <label for="title" class="col-md-2 col-xs-3 control-label">产品标题: </label>
+                    <div class="col-md-10 col-xs-9">
+                        <input type="text" class="form-control input-sm" id="title" name="title" placeholder="请输入产品标题"  value="<?= H($form['title']) ?>" autocomplete="off"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ref_no" class="col-md-2 col-xs-3 control-label">产品编号: </label>
+                    <div class="col-md-10 col-xs-9">
+                        <input type="text" class="form-control input-sm" id="ref_no" name="ref_no" value="<?= H($form['ref_no']) ?>" autocomplete="off" placeholder="请输入产品编号" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="open_start" class="col-md-2 col-xs-3 control-label">开放日: </label>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="datetime" class="form-control input-sm date" id="open_start" name="open_start" value="<?= H($form['open_start']) ?>" placeholder="请选择时间起点" />
+                        <span class="operate"> ~ </span>
+                    </div>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="datetime" class="form-control input-sm date" id="open_end" name="open_end" value="<?= H($form['open_end']) ?>" placeholder="请选择时间终点" />
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                    <label for="dead_start" class="col-md-2 col-xs-3 control-label">期限: </label>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="number" class="form-control input-sm" id="dead_start" name="dead_start" value="<?= H($form['dead_start']) ?>" placeholder="请输入天数最小值" />
+                        <span class="operate"> ~ </span>
+                    </div>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="number" class="form-control input-sm" id="dead_end" name="dead_end" value="<?= H($form['dead_end']) ?>" placeholder="请输入天数最大值"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="purchase_start" class="col-md-2 col-xs-3 control-label">起购金额: </label>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="number" class="form-control input-sm" id="purchase_start" name="purchase_start" value="<?= H($form['purchase_start']) ?>" autocomplete="off" placeholder="请输入起购最小值" />
+                        <span class="operate"> ~ </span>
+                    </div>
+                    <div class="col-md-5 col-xs-4">
+                        <input type="number" class="form-control input-sm" id="purchase_end" name="purchase_end" value="<?= H($form['purchase_end']) ?>" autocomplete="off" placeholder="请输入起购最大值" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <button class="btn btn-default btn-block" type="submit" form="products-search"><i class="fa fa-search"></i> <?= H('搜索') ?></button>
+            </div>
         </div>
     </form>
-    <div class="hr"></div>
-    <div class="search_tags">
-        <span class="desc">产品类型</span>
-        <a href="<?= URL('/products', array_merge($get_form, ['type' => 0])) ?>" class="<?= !$get_form['type'] ? 'active' : ''?>">全部</a>
-        <?php foreach(\Gini\ORM\Product::$TYPE as $k => $v): ?>
-            <a href="<?= URL('/products', array_merge($get_form, ['type' => (int)$k])) ?>" class="<?= $get_form['type'] == $k ? 'active' : ''?>"><?= $v ?></a>
-        <?php endforeach; ?>
-    </div>
-    <div class="hr"></div>
-    <div class="search_tags">
-        <span class="desc">产品状态</span>
-        <a href="<?= URL('/products', array_merge($get_form, ['status' => 0])) ?>" class="<?= !$get_form['status'] ? 'active' : ''?>">全部</a>
-        <?php foreach(\Gini\ORM\Product::$STATUS as $k => $v): ?>
-            <a href="<?= URL('/products', array_merge($get_form, ['status' => (int)$k])) ?>" class="<?= $get_form['status'] == $k ? 'active' : ''?>"><?= $v ?></a>
-        <?php endforeach; ?>
-    </div>
 </div>
-<div class="hr_2"></div>
 <div class="products">
+    <?= $pagination ?>
+    <div class="hr"></div>
     <table class="table table-hover">
         <tbody>
-            <?php foreach($products as $product): ?>
+            <?php if (count($products)): foreach($products as $product): ?>
             <tr>
                 <td class="col-md-4 col-xs-6">
                     <a href="<?= URL("/product/{$product->id}") ?>"><p class="pro-name"><?= H($product->title) ?></p></a>
                     <span class="tag-in-table-title">销售中</span>
                 </td>
+                <td class="col-xs-2">
+                    <p class="pro-rate"><?= H($product->rate ?: '0.00') ?>%</p>
+                </td>
                 <td class="col-xs-2 hidden-xs">
-                    <p class="pro-type">固定收益</p>
+                    <p class="pro-openday"><?= H(date('Y-m-d', strtotime($product->open_day))) ?></p>
+                    <p class="pro-remark">开放日</p>
                 </td>
                 <td class="col-xs-2 hidden-xs">
                     <p class="pro-data"><?= (int)$product->dead_day ?>天</p>
                     <p class="pro-remark">期限</p>
                 </td>
                 <td class="hidden-xs">
-                    <p class="pro-remark"><?= H($product->purchase) ?></p>
+                    <p class="pro-data"><?= H($product->purchase) ?></p>
+                    <p class="pro-remark">起购(元)</p>
                 </td>
                 <td class="col-xs-2">
                     <p class="pro-btn text-right">
@@ -58,7 +89,22 @@
                     </div>
                 </td>
             </tr>
-            <?php endforeach; ?>
+            <?php endforeach; else: ?>
+            <tr>
+                <td colspan="6" class="text-center"><span class="red">没有查询到对应的产品信息!</span></td>
+            </tr>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
+<script data-ajax="true">
+require(['main'], function($){
+    require(['bootstrap-datepicker', 'locales/bootstrap-datepicker.zh-CN', 'css!../css/bootstrap-datepicker'], function(){
+        $('.date').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN',
+            minView: 'day'
+        })
+    })
+});
+</script>
