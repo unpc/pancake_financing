@@ -48,10 +48,12 @@
                                 <td><?= join(', ', $perms) ?: '无' ?></td>
                                 <td class="text-right">
                                     <a href="gini-ajax:ajax/user/edit/<?= (int)$user->id ?>"><i class="fa fa-fw fa-edit"></i></a>
+                                    <?php if($me->isAllowedTo('超级管理')): ?>
                                     <a 
                                         data-confirm="<?= H(T('您确认删除用户:user吗?', [':user'=>$user->name])) ?>"
                                         data-confirm-description="<?= H(T('点击确认后会删除该用户信息, 请谨慎处理!')) ?>"
                                         href="gini-ajax:ajax/user/delete/<?= (int)$user->id ?>"><i class="fa fa-fw fa-close"></i></a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; endif;?>

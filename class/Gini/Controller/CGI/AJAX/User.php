@@ -36,8 +36,12 @@ class User extends \Gini\Controller\CGI
                 $user->email = H($form['email']);
                 $user->type = (int)$form['type'];
                 $user->group_name = H($form['group_name']);
-                $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
-                $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
+                if ($me->isAllowedTo('超级管理')) {
+                    $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
+                }
+                if ($me->isAllowedTo('管理')) {
+                    $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
+                }
                 $user->save();
 
                 $auth = \Gini\IoC::construct('\Gini\Auth', $username);
@@ -89,8 +93,12 @@ class User extends \Gini\Controller\CGI
                 $user->email = H($form['email']);
                 $user->type = (int)$form['type'];
                 $user->group_name = H($form['group_name']);
-                $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
-                $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
+                if ($me->isAllowedTo('超级管理')) {
+                    $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
+                }
+                if ($me->isAllowedTo('管理')) {
+                    $user->is_runner = H($form['is_runner']) == 'on' ? 1 : 0;
+                }
                 $user->save();
 
                 if ($form['password']) {
@@ -116,7 +124,7 @@ class User extends \Gini\Controller\CGI
         if (!$user->id) {
             $this->redirect('error/404');
         }
-        if (!$me->isAllowedTo('管理')) {
+        if (!$me->isAllowedTo('超级管理')) {
             $this->redirect('error/401');
         }
         //remove this user
