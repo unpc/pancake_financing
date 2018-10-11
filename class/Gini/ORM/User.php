@@ -21,6 +21,7 @@ class User extends Object
 
     protected static $db_index = array(
         'unique:username',
+        'unique:openid',
         'name_abbr',
         'ctime',
         );
