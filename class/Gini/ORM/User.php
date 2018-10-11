@@ -17,6 +17,8 @@ class User extends Object
     public $is_admin    = 'int,default:0';
     public $is_runner   = 'int,default:0';
 
+    public $wechat_id   = 'string:50';
+
     protected static $db_index = array(
         'unique:username',
         'name_abbr',

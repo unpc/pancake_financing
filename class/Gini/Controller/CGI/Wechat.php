@@ -6,20 +6,21 @@ class Wechat extends Layout
 {
     public function __index()
     {
-        $get = $_GET;
-        if (! (isset($get['signature']) && isset($get['timestamp']) && isset($get['nonce']))) {
-            return false;
-        }
+        // 1. 将从微信平台通过get传送过来的参数 timestamp, noce，token按字典排序
+        $timestamp = $_GET['timestamp'];
+        $nonce = $_GET['nonce'];
         $token = 'Genee83719730';
-        $signature = $get['signature'];
-        $timestamp = $get['timestamp'];
-        $nonce = $get['nonce'];
-
-        $signatureArray = array($token, $timestamp, $nonce);
-        sort($signatureArray, SORT_STRING);
-        $return = sha1(implode($signatureArray)) == $signature ? $get['echostr'] : false;
-
-        echo (string)$return;
+        $signature = $_GET['signature'];
+        $array = [$timestamp, $nonce, $token];
+        sort($array);
+        // 2. 将排序后的三个参数拼接后用sha1加密
+        $tmpstr = implode('', $array);
+        $tmpstr = sha1($tmpstr);
+        // 3. 将加密后的字符串与signature进行对比， 判断该请求是否来自微信
+        if ($tmpstr == $signature) {
+            echo $_GET['echostr'];
+            exit;
+        }
     }
 
     public function actionCreateMenu()
@@ -53,5 +54,25 @@ class Wechat extends Layout
 
         $response = $http->request('post', "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={$access_token}", $params);
         $this->view = $response;
+    }
+
+    public function actionProduct()
+    {
+
+    }
+
+    public function actionMine()
+    {
+        
+    }
+
+    public function actionNews()
+    {
+        
+    }
+
+    private function getWechatUser()
+    {
+
     }
 }
