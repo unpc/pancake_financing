@@ -17,7 +17,7 @@ class Login extends Layout\Login
                     ->validate('authToken', $form['authToken'], T('手机号码不能为空!'))
                     ->validate('authToken', preg_match('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/', $form['authToken']), T('请输入有效的手机号!'))
                     ->validate('authPassword', $form['authPassword'], T('登录密码不能为空!'))
-                    ->validate('authPassword', preg_match('/(?=^.{8,24}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?!.*\s)[0-9a-zA-Z!@#.,$%*()_+^&]*$/', $form['authPassword']), T('请输入8~24位含大写字母、数字密码!'))
+                    ->validate('authPassword', preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}$/', $form['authPassword']), T('请输入8~24位含字母、数字密码!'))
                     ->done();
 
                 $auth = \Gini\IoC::construct('\Gini\Auth', H($form['authToken']));
@@ -66,9 +66,9 @@ class Login extends Layout\Login
                 $validator
                     ->validate('authToken', $form['authToken'], T('手机号码不能为空!'))
                     ->validate('authToken', preg_match('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/', $form['authToken']), T('请输入有效的手机号!'))
-                    ->validate('authToken', $exist_user->id, T('您输入的手机号已经注册!'))
+                    ->validate('authToken', !$exist_user->id, T('您输入的手机号已经注册!'))
                     ->validate('authPassword', $form['authPassword'], T('登录密码不能为空!'))
-                    ->validate('authPassword', preg_match('/(?=^.{8,24}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?!.*\s)[0-9a-zA-Z!@#.,$%*()_+^&]*$/', $form['authPassword']), T('请输入8~24位含大写字母、数字密码!'))
+                    ->validate('authPassword', preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,12}$/', $form['authPassword']), T('请输入8~24位含字母、数字密码!'))
                     ->validate('authCode', $form['authCode'], T('验证码不能为空!'))
                     ->validate('authCode', $code->identity == $form['authCode'], T('验证码填写错误!'))
                     ->validate('isRead', $form['isRead'] == 'on', T('请确认查看理财服务协议!'))
