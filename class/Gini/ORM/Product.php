@@ -65,10 +65,12 @@ class Product extends Object
 
     const PUBLISH_NOTHING = 0;
     const PUBLISH_YET = 1;
+    const PUBLISH_EXPIRE = 2;
 
     public static $PUBLISH = [
         self::PUBLISH_NOTHING => '未发布',
-        self::PUBLISH_YET => '已发布'
+        self::PUBLISH_YET => '已发布',
+        self::PUBLISH_EXPIRE => '已过期'
     ];
 
     public function save()

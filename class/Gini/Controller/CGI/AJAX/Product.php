@@ -203,4 +203,21 @@ class Product extends \Gini\Controller\CGI
 
         return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
     }
+
+    public function actionUnApproval($id=0)
+    {
+        $me = _G('ME');
+        $product = a('product', $id);
+        if (!$product->id) {
+            $this->redirect('error/404');
+        }
+        if (!$me->isAllowedTo('超级管理')) {
+            $this->redirect('error/401');
+        }
+        //remove this project
+        $product->publish = \Gini\ORM\Product::PUBLISH_EXPIRE;
+        $product->save();
+
+        return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
+    }
 }
