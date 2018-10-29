@@ -104,6 +104,7 @@
                 </td>
                 <td class="col-xs-2">
                     <p class="pro-rate"><?= H($product->rate ?: '0.00') ?>%</p>
+                    <p class="pro-remark"><?= number_format($product->amount) ?>元</p>
                 </td>
                 <td class="col-xs-2 hidden-xs">
                     <p class="pro-openday"><?= H(date('Y-m-d', strtotime($product->open_day))) ?></p>

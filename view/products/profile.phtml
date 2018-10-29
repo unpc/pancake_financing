@@ -15,7 +15,7 @@
                         <div class="tag-shadow"></div>
                     </div>
                     <h2 class="name"><?= H($product->title) ?></h2>
-                    <h3 class="type"><?= H($product->Issuer) ?></h3>
+                    <h3 class="type"><?= H($product->Issuer) ?> <strong class="red"><?= number_format($product->amount) ?>元</strong></h3>
                     <div class="row column-desc">
                         <div class="col-md-4 col-xs-12 column">
                             <h4>收益率</h4>
