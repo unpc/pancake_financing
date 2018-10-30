@@ -9,12 +9,15 @@ class News extends Object
     public $type = 'int:1';
     public $ctime = 'datetime';
     public $publish = 'datetime';
+    
+    public $product = 'object:product';
 
     protected static $db_index = [
         'title',
         'publish',
         'ctime',
-        'type'
+        'type',
+        'product'
     ];
 
     const TYPE_NORMAL = 1;

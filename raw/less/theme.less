@@ -354,8 +354,46 @@ html,body {
 							}
 						}
 					}
+					.product-news {
+						.list {
+							li {
+								padding: 25px 0px;
+								border-top: 1px solid #f2f2f2;
+								&:first-child {
+									border-top: none;
+								}
+								a {
+									line-height: 20px;
+									font-size: 18px;
+									overflow: hidden;
+									color: #333;
+									text-decoration: none;
+									&:hover {
+										color: @red;
+									}
+								}
+								.desc {
+									margin: 12px 0;
+									line-height: 22px;
+									font-size: 14px;
+									color: #666;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									display: -webkit-box;
+									-webkit-box-orient: vertical;
+									-webkit-line-clamp: 2;
+								}
+								.time {
+									line-height: 14px;
+									font-size: 14px;
+									color: #999;
+								}
+							}
+						}
+					}
 					.product-desc {
-						margin: 15px 25px 50px;
+						margin: 15px 0px 50px;
+						min-height: 300px;
 						.row {
 							margin: 0px;
 						}

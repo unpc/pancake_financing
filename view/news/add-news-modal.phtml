@@ -9,7 +9,7 @@
     <div class="modal-body" style="padding-top:20px;">
         <form id="add-news-form" method="POST" action="gini-ajax:ajax/news/add">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 col-xs-12">
                     <div class="form-group <?= isset($form['_errors']['title']) ? ' has-error':'' ?>">
                         <?php if (isset($form['_errors']['title'])) { ?>
                         <span class="label label-danger pull-right">
@@ -20,7 +20,7 @@
                         <input id="title" name="title" type="text" class="form-control" value="<?= H($form['title']) ?>"/>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-xs-12">
                     <div class="form-group label-floating is-empty">
                         <?php if (isset($form['_errors']['type'])) { ?>
                         <span class="badge badge-danger pull-right">
@@ -33,6 +33,20 @@
                                 <option value="<?= T($k) ?>" <?= $form['type'] == $k ? "selected" : '' ?>><?= T($v) ?></option>
                             <?php endforeach; ?>
                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group <?= isset($form['_errors']['product']) ? ' has-error':'' ?>">
+                        <?php if (isset($form['_errors']['product'])) { ?>
+                        <span class="label label-danger pull-right">
+                            <?= H($form['_errors']['product']) ?>
+                        </span>
+                        <?php } ?>
+                        <label class="control-label" for="product"><?= H('关联产品') ?><small class="red">（<?= H('公告类型为产品公告可选择关联产品信息') ?>）</small></label>
+                        <input id="product" name="product" type="text" class="form-control autocomplete" autocomplete="off" value="<?= H($form['product']) ?>" placeholder="<?= T('请输入产品编号或名称') ?>"/>
+                        <input id="product_id" name="product_id" hidden value="<?= $form['product_id'] ?>" />
                     </div>
                 </div>
             </div>
@@ -58,7 +72,7 @@
 </div></div>
 </div>
 <script data-ajax="true">
-require(['main'], function($){
+require(['main', 'bootstrap.autocomplete'], function($){
 
     var $modal = $('#add-news-modal');
     $modal
@@ -76,4 +90,35 @@ require(['main'], function($){
     require(['bootstrap-select', 'css!../css/bootstrap-select'], function(){
         $('.selectpicker').selectpicker()
     })
+
+    $('input#product').autocomplete({
+        source: function(query, process){
+            $.ajax({
+                url: 'ajax/product/getProducts',
+                method: 'POST',
+                data: {
+                    query: query
+                },
+                success: function(respData) {
+                    return process(respData)
+                }
+            })
+        },
+        formatItem: function(item){
+            return item["name"] + '(' + item["number"] + ')'
+        },
+        setValue: function(item){
+            return { 'data-value': item["name"], 'real-value': item["id"] }
+        },
+        select: function () {
+            var val = this.$menu.find('.active').attr('data-value'),
+                realVal = this.$menu.find('.active').attr('real-value')
+            this.$element
+            .val(this.updater(val))
+            .attr("real-value", realVal)
+            .change()
+            $('input#product_id').val(realVal)
+            return this.hide()
+        }
+    });
 });

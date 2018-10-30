@@ -27,6 +27,9 @@ class News extends \Gini\Controller\CGI
                 $n->ctime = date('Y-m-d H:i:s');
                 $n->publish = date('Y-m-d H:i:s');
                 $n->type = (int)$form['type'];
+                if ($n->type == \Gini\ORM\News::TYPE_PRODUCT) {
+                    $n->product = a('product', $form['product_id']);
+                }
                 $n->save();
 
                 return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');
@@ -62,6 +65,12 @@ class News extends \Gini\Controller\CGI
                 $new->content = $form['content'];
                 $new->publish = date('Y-m-d H:i:s');
                 $new->type = (int)$form['type'];
+                if ($new->type == \Gini\ORM\News::TYPE_PRODUCT) {
+                    $new->product = a('product', $form['product_id']);
+                }
+                else {
+                    $new->product = a('product');
+                }
                 $new->save();
 
                 return \Gini\IoC::construct('\Gini\CGI\Response\HTML', '<script data-ajax="true">window.location.reload();</script>');

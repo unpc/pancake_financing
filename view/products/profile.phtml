@@ -62,31 +62,54 @@
     <div class="hr_2"></div>
     <div class="profile-box">
         <div class="desc-box">
-            <div class="product-desc">
-                <h3 class="title">基础信息</h3>
-                <div class="row">
-                    <div class="col-md-2 col-xs-4 bg">产品全称</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->title) ?></div>
-                    <div class="col-md-2 col-xs-4 bg">产品成立日</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->create_day) ?></div>
-                    <div class="col-md-2 col-xs-4 bg">产品期限</div>
-                    <div class="col-md-4 col-xs-8 body"><?= (int)$product->dead_day ?>天</div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">产品详情</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">产品公告</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="product-desc">
+                        <h3 class="title">基础信息</h3>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-4 bg">产品全称</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->title) ?></div>
+                            <div class="col-md-2 col-xs-4 bg">产品成立日</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->create_day) ?></div>
+                            <div class="col-md-2 col-xs-4 bg">产品期限</div>
+                            <div class="col-md-4 col-xs-8 body"><?= (int)$product->dead_day ?>天</div>
+                        </div>
+                        <h3 class="title">购买规则</h3>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-4 bg">起购金额</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->purchase / 10000) ?>万</div>
+                            <div class="col-md-2 col-xs-4 bg">固定管理费</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->admin_rate) ?></div>
+                            <div class="col-md-2 col-xs-4 bg">购买对象</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->purchase_object) ?></div>
+                        </div>
+                        <h3 class="title">分配规则</h3>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-4 bg">分配方式</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->distribution) ?></div>
+                            <div class="col-md-2 col-xs-4 bg">赎回费率</div>
+                            <div class="col-md-4 col-xs-8 body"><?= H($product->redemption_rate) ?></div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="title">购买规则</h3>
-                <div class="row">
-                    <div class="col-md-2 col-xs-4 bg">起购金额</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase / 10000) ?>万</div>
-                    <div class="col-md-2 col-xs-4 bg">固定管理费</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->admin_rate) ?></div>
-                    <div class="col-md-2 col-xs-4 bg">购买对象</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->purchase_object) ?></div>
-                </div>
-                <h3 class="title">分配规则</h3>
-                <div class="row">
-                    <div class="col-md-2 col-xs-4 bg">分配方式</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->distribution) ?></div>
-                    <div class="col-md-2 col-xs-4 bg">赎回费率</div>
-                    <div class="col-md-4 col-xs-8 body"><?= H($product->redemption_rate) ?></div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <div class="product-desc product-news">
+                        <ul class="list">
+                            <?php
+                                foreach($news as $new): 
+                            ?>
+                            <li>
+                                <a href="<?= URL("/news/profile/{$new->id}") ?>"><?= H($new->title) ?></a>
+                                <div class="hr"></div>
+                                <p class="time"><?= $new->ctime ?></p>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,9 +12,16 @@ class Product extends Layout\Index
 
         $product = a('product', $id);
 
+        $step = 5;
+
+        $news = those('news')->whose('product')->is($product)->orderBy('ctime', 'D');  
+
+        $pagination = \Gini\Model\Help::pagination($news, $form['st'], $step);
+
         $this->view->body = V('products/profile', [
             'product' => $product,
-            'form' => $form
+            'form' => $form,
+            'news' => $news
         ]);
     }
 }

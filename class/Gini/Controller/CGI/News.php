@@ -8,9 +8,9 @@ class News extends Layout\Index
     {
         $form = $this->form();
         
-        $step = 10;
+        $step = 5;
 
-        $news = those('news');
+        $news = those('news')->orderBy('ctime', 'D'); 
 
         $pagination = \Gini\Model\Help::pagination($news, $form['st'], $step);
 
