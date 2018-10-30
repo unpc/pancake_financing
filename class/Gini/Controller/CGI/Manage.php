@@ -148,6 +148,18 @@ class Manage extends Layout\Index
         $step = 10;
         $agreements = those('agreement');
 
+        if ($form['phone']) {
+            $agreements = $agreements->whose('user')->isIn(
+                those('user')->whose('username')->contains(H($form['phone']))
+            );
+        }
+
+        if ($form['number']) {
+            $agreements = $agreements->whose('product')->isIn(
+                those('product')->whose('number')->contains(H($form['number']))
+            );
+        }
+
         $pagination = \Gini\Model\Help::pagination($agreements, $form['st'], $step);
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
@@ -170,8 +182,22 @@ class Manage extends Layout\Index
             $this->redirect('error/401');
         }
         $form = $this->form();
+
+        $reserves = those('reserve');
+        if ($form['phone']) {
+            $reserves = $reserves->whose('user')->isIn(
+                those('user')->whose('username')->contains(H($form['phone']))
+            );
+        }
+
+        if ($form['number']) {
+            $reserves = $reserves->whose('product')->isIn(
+                those('product')->whose('number')->contains(H($form['number']))
+            );
+        }
+
         $step = 10;
-        $reserves = those('reserve')->orderBy('ctime', 'D');
+        $reserves = $reserves->orderBy('ctime', 'D');
         $pagination = \Gini\Model\Help::pagination($reserves, $form['st'], $step);
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
         }
