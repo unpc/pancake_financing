@@ -26,9 +26,14 @@ class User extends \Gini\Controller\CGI
                     ->validate('username', preg_match('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/', $form['username']), T('请输入有效的手机号!'))
                     ->validate('username', !$exist_user->id, T('请更换其他手机账号!'))
                     ->validate('password', $form['password'], T('登录密码不能为空!'))
-                    ->validate('password', preg_match('/(?=^.{8,24}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?!.*\s)[0-9a-zA-Z!@#.,$%*()_+^&]*$/', $form['password']), T('请输入8~24位含大写字母、数字密码!'))
-                    ->validate('name', $form['name'], T('姓名不能为空!'))
-                    ->done();
+                    ->validate('password', preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,24}$/', $form['password']), T('请输入8~24位含字母、数字密码!'))
+                    ->validate('name', $form['name'], T('姓名不能为空!'));
+
+                if ($form['idcard']) {
+                    $validator->validate('idcard', preg_match('/^([\d]{17}[xX\d]|[\d]{15})$/', $form['idcard']), T('请填写合法的身份证信息!'));
+                }
+
+                $validator->done();
 
                 $user = a('user');
                 $user->name = H($form['name']);
@@ -36,6 +41,7 @@ class User extends \Gini\Controller\CGI
                 $user->email = H($form['email']);
                 $user->type = (int)$form['type'];
                 $user->group_name = H($form['group_name']);
+                $user->idcard = H($form['idcard']);
                 if ($me->isAllowedTo('超级管理')) {
                     $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
                 }
@@ -84,7 +90,10 @@ class User extends \Gini\Controller\CGI
                     ->validate('username', !$exist_user->id, T('请更换其他手机账号!'))
                     ->validate('name', $form['name'], T('姓名不能为空!'));
                 if ($form['password']) {
-                    $validator->validate('password', preg_match('/(?=^.{8,24}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?!.*\s)[0-9a-zA-Z!@#.,$%*()_+^&]*$/', $form['password']), T('请输入8~24位含大写字母、数字密码!'));
+                    $validator->validate('password', preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,24}$/', $form['password']), T('请输入8~24位含字母、数字密码!'));
+                }
+                if ($form['idcard']) {
+                    $validator->validate('idcard', preg_match('/^([\d]{17}[xX\d]|[\d]{15})$/', $form['idcard']), T('请填写合法的身份证信息!'));
                 }
                 $validator->done();
 
@@ -93,6 +102,7 @@ class User extends \Gini\Controller\CGI
                 $user->email = H($form['email']);
                 $user->type = (int)$form['type'];
                 $user->group_name = H($form['group_name']);
+                $user->idcard = H($form['idcard']);
                 if ($me->isAllowedTo('超级管理')) {
                     $user->is_admin = H($form['is_admin']) == 'on' ? 1 : 0;
                 }

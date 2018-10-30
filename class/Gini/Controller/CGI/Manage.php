@@ -18,6 +18,15 @@ class Manage extends Layout\Index
         $step = 10;
 
         $users = those('user');
+
+        if ($form['username']) {
+            $users = $users->whose('username')->contains(H($form['username']));
+        }
+
+        if ($form['idcard']) {
+            $users = $users->whose('idcard')->contains(H($form['idcard']));
+        }
+
         $pagination = \Gini\Model\Help::pagination($users, $form['st'], $step);
 
         
@@ -43,6 +52,10 @@ class Manage extends Layout\Index
         $form = $this->form();
         $step = 10;
         $products = those('product')->whose('publish')->is((int)$publish);
+
+        if ($form['number']) {
+            $products = $products->whose('number')->contains(H($form['number']));
+        }
 
         $products = $products->orderBy('ctime', 'D');
 

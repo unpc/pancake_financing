@@ -62,7 +62,7 @@
             <div class="col-md-6">
                 <div class="form-group label-floating is-empty">
                     <?php if (isset($form['_errors']['type'])) { ?>
-                    <span class="badge badge-danger pull-right">
+                    <span class="label label-danger pull-right">
                         <?= H($form['_errors']['type']) ?>
                     </span>
                     <?php } ?>
@@ -77,6 +77,17 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-6">
+                <div class="form-group label-floating is-empty">
+                    <?php if (isset($form['_errors']['idcard'])) { ?>
+                    <span class="label label-danger pull-right">
+                        <?= H($form['_errors']['idcard']) ?>
+                    </span>
+                    <?php } ?>
+                    <label class="control-label" for="idcard"><?= H('身份证号') ?></label>
+                    <input type="text" class="form-control" id="idcard" name="idcard" autocomplete="off" value="<?= H($form['_errors'] ? $form['idcard'] : $user->idcard) ?>" >
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="checkbox">
                     <?php if($me->isAllowedTo('超级管理')): ?>

@@ -17,6 +17,7 @@ class User extends Object
     public $is_admin    = 'int,default:0';
     public $is_runner   = 'int,default:0';
 
+    public $idcard      = 'string:20';
     public $openid   = 'string:50';
 
     protected static $db_index = array(
@@ -24,6 +25,7 @@ class User extends Object
         'openid',
         'name_abbr',
         'ctime',
+        'idcard'
         );
     
     CONST TYPE_USER = 0;
